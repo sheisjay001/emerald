@@ -13,8 +13,10 @@ import {
   Utensils
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { useAuth } from "@/context/AuthContext";
 
 export default function DashboardPage() {
+  const { user } = useAuth();
   // Mock Data - In a real app, this would come from your backend/context
   const currentPhase = "Luteal Phase";
   const dayOfCycle = 22;
@@ -57,7 +59,7 @@ export default function DashboardPage() {
       {/* Welcome Header */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">Good Morning, Sarah</h1>
+          <h1 className="text-3xl font-bold text-foreground">Good Morning, {user?.name || "Sarah"}</h1>
           <p className="text-muted-foreground mt-1">Here's your holistic cycle update for today.</p>
         </div>
         <div className="flex items-center gap-3">
