@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/dist/style.css";
 import { format, addDays } from "date-fns";
 import { motion } from "framer-motion";
 import { Droplets, AlertCircle, Sparkles } from "lucide-react";
+import { LocalStorage } from "@/lib/storage";
 
 // Mock data for cycle phases
 const cycleData = {

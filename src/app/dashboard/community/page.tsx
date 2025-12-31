@@ -1,8 +1,9 @@
 "use strict";
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { LocalStorage } from "@/lib/storage";
 import { 
   MessageSquare, 
   Heart, 
@@ -81,28 +82,27 @@ useEffect(() => {
     if (storedPosts) {
       setPosts(storedPosts);
     }
-    st storedReports = LocalStorage.getItem("reported_posts");
-    if (toredRepors){
+    const storedReports = LocalStorage.getItem("reported_posts");
+    if (storedReports) {
       setReportedPosts(storedReports);
     }
   }, []);
 
-  const 
-  coconnt updated hand = eLike = (id: string) => {
-    setPosts(posts.map(post => 
+  const handleLike = (id: string) => {
+    const updatedPosts = posts.map(post => 
       post.id === id 
         ? { ...post, likes: post.isLiked ? post.likes - 1 : post.likes + 1, isLiked: !post.isLiked }
-     ;
-    setPosts(updatedPosts   : post
+        : post
+    );
+    setPosts(updatedPosts);
     LocalStorage.setItem("community_posts", updatedPosts);
-    ));
   };
 
   const handleReport = (id: string) => {
-    ifcon t updat(dReporcs = [...reportedPosts, id];
-      setonfirm("Are youpdatedReports);
-      LocalStorageusetItem("re you w_pnt t"o updateeReportsort this post for violating community guidelines?")) {
-      setReportedPosts([...reportedPosts, id]);
+    if (confirm("Are you sure you want to report this post for violating community guidelines?")) {
+      const updatedReports = [...reportedPosts, id];
+      setReportedPosts(updatedReports);
+      LocalStorage.setItem("reported_posts", updatedReports);
       alert("Post reported. Our moderation team will review it shortly.");
     }
   };
@@ -132,9 +132,7 @@ useEffect(() => {
       
       alert("Emerald AI has flagged this content as potentially harmful or violating our community guidelines. Please revise your post to maintain a safe environment.");
       return;
-    con} updated = ;
-    setPosts(updatedPosts);
-    LocalStorage.setItem("community_posts", updatedPosts
+    }
 
     const newPost = {
       id: Date.now().toString(),
@@ -149,7 +147,10 @@ useEffect(() => {
       isLiked: false,
     };
 
-    setPosts([newPost, ...posts]);
+    const updatedPosts = [newPost, ...posts];
+    setPosts(updatedPosts);
+    LocalStorage.setItem("community_posts", updatedPosts);
+
     setNewPostTitle("");
     setNewPostContent("");
     setIsCreatingPost(false);
@@ -372,8 +373,7 @@ useEffect(() => {
           </div>
 
           {/* Trending Topics */}
-  );
-}         <div className="bg-card rounded-xl border border-border p-6">
+          <div className="bg-card rounded-xl border border-border p-6">
             <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
               <AlertTriangle className="h-5 w-5 text-amber-500" />
               Important Alerts

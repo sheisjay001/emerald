@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { LocalStorage } from "@/lib/storage";
 import { 
   Smile, 
   Meh, 
@@ -102,7 +103,7 @@ export default function HealthPage() {
     }
     
     // PMDD Pattern
-    if (selectedMood === "Sad" && selectedMood === "Anxious" && selectedSymptoms.includes("Bloating")) {
+    if ((selectedMood === "Sad" || selectedMood === "Anxious") && selectedSymptoms.includes("Bloating")) {
        alerts.push({
         title: "PMDD Pattern Detected",
         message: "Severe mood shifts combined with physical symptoms before your period may indicate PMDD.",
