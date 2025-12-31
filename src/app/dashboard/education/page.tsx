@@ -24,9 +24,9 @@ const ARTICLES = [
 During this time, your progesterone levels rise. Progesterone is known as the "calming hormone," but it also has physical effects that can feel like PMS.
 
 Key Changes in Your Body:
-- Increased Metabolism: Your body actually burns more calories during this phase (100-300 extra per day), which explains the hunger!
-- Water Retention: You might feel bloated as your body holds onto fluids.
-- Lower Energy: As progesterone rises, you may feel more tired or sluggish. This is a signal from your body to slow down.
+Increased Metabolism: Your body actually burns more calories during this phase (100-300 extra per day), which explains the hunger!
+Water Retention: You might feel bloated as your body holds onto fluids.
+Lower Energy: As progesterone rises, you may feel more tired or sluggish. This is a signal from your body to slow down.
 
 How to Support Yourself:
 1. Prioritize Rest: Go to bed 30 minutes earlier than usual.
@@ -45,21 +45,21 @@ How to Support Yourself:
 Techniques to Try:
 
 1. The 4-7-8 Breathing Method
-- Inhale quietly through the nose for 4 seconds.
-- Hold the breath for 7 seconds.
-- Exhale forcefully through the mouth for 8 seconds.
-- Repeat 4 times.
+Inhale quietly through the nose for 4 seconds.
+Hold the breath for 7 seconds.
+Exhale forcefully through the mouth for 8 seconds.
+Repeat 4 times.
 
 2. Magnesium Glycinate
 Consider supplementing with magnesium (consult your doctor first). It's known as "nature's relaxant" and can help with both anxiety and cramps.
 
 3. Sensory Grounding
 When you feel overwhelmed, find:
-- 5 things you can see
-- 4 things you can feel
-- 3 things you can hear
-- 2 things you can smell
-- 1 thing you can taste\`
+5 things you can see
+4 things you can feel
+3 things you can hear
+2 things you can smell
+1 thing you can taste\`
   },
   {
     id: 3,
@@ -72,13 +72,13 @@ When you feel overwhelmed, find:
 
 Phase 1: Follicular Phase (Day 1 to Ovulation)
 Goal: Support Estrogen Production
-- Seeds: 1 tbsp Flax seeds + 1 tbsp Pumpkin seeds daily.
-- Why: Flax seeds contain lignans which bind to excess estrogen. Pumpkin seeds are high in zinc, which supports progesterone production for the next phase.
+Seeds: 1 tbsp Flax seeds + 1 tbsp Pumpkin seeds daily.
+Why: Flax seeds contain lignans which bind to excess estrogen. Pumpkin seeds are high in zinc, which supports progesterone production for the next phase.
 
 Phase 2: Luteal Phase (Ovulation to Period)
 Goal: Support Progesterone Production
-- Seeds: 1 tbsp Sesame seeds + 1 tbsp Sunflower seeds daily.
-- Why: Sesame seeds block excess estrogen. Sunflower seeds are high in selenium and Vitamin E, which support progesterone levels.\`
+Seeds: 1 tbsp Sesame seeds + 1 tbsp Sunflower seeds daily.
+Why: Sesame seeds block excess estrogen. Sunflower seeds are high in selenium and Vitamin E, which support progesterone levels.\`
   },
   {
     id: 4,
@@ -107,9 +107,9 @@ Key Steps for Protection:
     content: \`Polycystic Ovary Syndrome (PCOS) affects 1 in 10 women of childbearing age. Early detection can prevent long-term complications.
 
 Common Symptoms:
-- Irregular Periods: Fewer than 9 periods a year or cycles longer than 35 days.
-- Excess Androgen: High levels of "male" hormones resulting in physical signs like excess facial or body hair (hirsutism) or severe acne.
-- Polycystic Ovaries: Your ovaries might be enlarged and contain follicles that surround the eggs.
+Irregular Periods: Fewer than 9 periods a year or cycles longer than 35 days.
+Excess Androgen: High levels of "male" hormones resulting in physical signs like excess facial or body hair (hirsutism) or severe acne.
+Polycystic Ovaries: Your ovaries might be enlarged and contain follicles that surround the eggs.
 
 What to Do:
 If you have at least two of these symptoms, consult a healthcare provider. Lifestyle changes, including a low-glycemic diet and regular exercise, are often the first line of treatment.\`
@@ -125,27 +125,27 @@ If you have at least two of these symptoms, consult a healthcare provider. Lifes
 
 1. Menstrual Phase (Winter)
 Days 1-5
-- What's happening: Hormones are at their lowest. Your uterine lining is shedding.
-- How you feel: Tired, inward-focused, reflective.
-- Superpower: Intuition and evaluation. It's a great time to journal and reassess your goals.
+What's happening: Hormones are at their lowest. Your uterine lining is shedding.
+How you feel: Tired, inward-focused, reflective.
+Superpower: Intuition and evaluation. It's a great time to journal and reassess your goals.
 
 2. Follicular Phase (Spring)
 Days 6-14
-- What's happening: Estrogen starts to rise. An egg is preparing to be released.
-- How you feel: Energetic, creative, social.
-- Superpower: Brainstorming and beginning new projects. Your brain is primed for learning and complex problem-solving.
+What's happening: Estrogen starts to rise. An egg is preparing to be released.
+How you feel: Energetic, creative, social.
+Superpower: Brainstorming and beginning new projects. Your brain is primed for learning and complex problem-solving.
 
 3. Ovulatory Phase (Summer)
 Days 15-17
-- What's happening: Estrogen peaks; testosterone surges slightly. The egg is released.
-- How you feel: Confident, magnetic, communicative.
-- Superpower: Communication and connection. Schedule important meetings or dates now.
+What's happening: Estrogen peaks; testosterone surges slightly. The egg is released.
+How you feel: Confident, magnetic, communicative.
+Superpower: Communication and connection. Schedule important meetings or dates now.
 
 4. Luteal Phase (Autumn)
 Days 18-28
-- What's happening: Progesterone rises. The body prepares for a potential pregnancy.
-- How you feel: Calmer, detail-oriented, potentially moody if hormones are unbalanced.
-- Superpower: Focus and finishing tasks. It's the "get things done" phase.\`
+What's happening: Progesterone rises. The body prepares for a potential pregnancy.
+How you feel: Calmer, detail-oriented, potentially moody if hormones are unbalanced.
+Superpower: Focus and finishing tasks. It's the "get things done" phase.\`
   },
   {
     id: 7,
@@ -165,14 +165,14 @@ In the second half (Luteal), estrogen drops and progesterone rises. Progesterone
 Scientific Ways to Stabilize Mood:
 
 1. Cycle-Sync Your Social Life:
-   - High Estrogen: Go out, network, socialize.
-   - High Progesterone: Keep plans low-key, prioritize close friends or solo time.
+   High Estrogen: Go out, network, socialize.
+   High Progesterone: Keep plans low-key, prioritize close friends or solo time.
 
 2. Blood Sugar Balance:
-   - Mood swings are often exaggerated by blood sugar crashes. Eat protein and healthy fats with every meal, especially in your Luteal phase.
+   Mood swings are often exaggerated by blood sugar crashes. Eat protein and healthy fats with every meal, especially in your Luteal phase.
 
 3. Sunlight & Vitamin D:
-   - Aim for 10-15 minutes of morning sunlight to regulate your circadian rhythm, which helps balance serotonin levels naturally.\`
+   Aim for 10-15 minutes of morning sunlight to regulate your circadian rhythm, which helps balance serotonin levels naturally.\`
   },
 ];
 
