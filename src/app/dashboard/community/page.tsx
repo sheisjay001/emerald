@@ -76,34 +76,65 @@ export default function CommunityPage() {
   const [newPostTitle, setNewPostTitle] = useState("");
   const [newPostCategory, setNewPostCategory] = useState("General");
   const [reportedPosts, setReportedPosts] = useState<string[]>([]);
+useEffect(() => {
+    const storedPosts = LocalStorage.getItem("community_posts");
+    if (storedPosts) {
+      setPosts(storedPosts);
+    }
+    st storedReports = LocalStorage.getItem("reported_posts");
+    if (toredRepors){
+      setReportedPosts(storedReports);
+    }
+  }, []);
 
-  const handleLike = (id: string) => {
+  const 
+  coconnt updated hand = eLike = (id: string) => {
     setPosts(posts.map(post => 
       post.id === id 
         ? { ...post, likes: post.isLiked ? post.likes - 1 : post.likes + 1, isLiked: !post.isLiked }
-        : post
+     ;
+    setPosts(updatedPosts   : post
+    LocalStorage.setItem("community_posts", updatedPosts);
     ));
   };
 
   const handleReport = (id: string) => {
-    if (confirm("Are you sure you want to report this post for violating community guidelines?")) {
+    ifcon t updat(dReporcs = [...reportedPosts, id];
+      setonfirm("Are youpdatedReports);
+      LocalStorageusetItem("re you w_pnt t"o updateeReportsort this post for violating community guidelines?")) {
       setReportedPosts([...reportedPosts, id]);
       alert("Post reported. Our moderation team will review it shortly.");
     }
   };
 
-  const handleCreatePost = (e: React.FormEvent) => {
+  const handleCreatePost = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newPostTitle.trim() || !newPostContent.trim()) return;
 
-    // AI Moderation Check
+    // Simulate AI Analysis
     const combinedText = `${newPostTitle} ${newPostContent}`.toLowerCase();
-    const hasToxicContent = TOXIC_WORDS.some(word => combinedText.includes(word));
+    
+    // Enhanced AI Moderation Logic (Mock)
+    const toxicPatterns = [
+      ...TOXIC_WORDS,
+      "hurt myself", "kill myself", "die", // Self-harm detection
+      "ugly", "fat", "hate you" // Harassment
+    ];
+
+    const hasToxicContent = toxicPatterns.some(word => combinedText.includes(word));
 
     if (hasToxicContent) {
-      alert("Your post contains words that violate our community guidelines. Please revise it.");
+      // If self-harm is detected, show resources immediately
+      if (combinedText.includes("hurt myself") || combinedText.includes("kill myself") || combinedText.includes("die")) {
+        alert("We detected content indicating you might be in distress. Please reach out to the Crisis Text Line (Text HOME to 741741) or call 988 immediately. Your safety matters.");
+        return;
+      }
+      
+      alert("Emerald AI has flagged this content as potentially harmful or violating our community guidelines. Please revise your post to maintain a safe environment.");
       return;
-    }
+    con} updated = ;
+    setPosts(updatedPosts);
+    LocalStorage.setItem("community_posts", updatedPosts
 
     const newPost = {
       id: Date.now().toString(),
@@ -341,7 +372,8 @@ export default function CommunityPage() {
           </div>
 
           {/* Trending Topics */}
-          <div className="bg-card rounded-xl border border-border p-6">
+  );
+}         <div className="bg-card rounded-xl border border-border p-6">
             <h3 className="font-semibold text-foreground mb-4 flex items-center gap-2">
               <AlertTriangle className="h-5 w-5 text-amber-500" />
               Important Alerts

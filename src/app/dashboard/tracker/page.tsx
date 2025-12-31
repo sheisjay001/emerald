@@ -25,6 +25,15 @@ export default function TrackerPage() {
     new Date(2024, 11, 28),
   ]);
 
+  useEffect(() => {
+    const storedDays = LocalStorage.getItem("period_days");
+    if (storedDays) {
+      // Need to convert strings back to Date objects
+      const dates = storedDays.map((d: string) => new Date(d));
+      setPeriodDays(dates);
+    }
+  }, []);
+
   const handleLogPeriod = (start: Date, days: number) => {
     const newDays = [];
     for (let i = 0; i < days; i++) {
@@ -35,6 +44,7 @@ export default function TrackerPage() {
       self.findIndex(d => d.getTime() === date.getTime()) === i
     );
     setPeriodDays(uniqueDays);
+    LocalStorage.setItem("period_days", uniqueDays.map(d => d.toISOString()));
     setIsLogModalOpen(false);
   };
 

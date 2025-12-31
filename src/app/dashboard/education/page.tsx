@@ -31,7 +31,7 @@ Lower Energy: As progesterone rises, you may feel more tired or sluggish. This i
 How to Support Yourself:
 1. Prioritize Rest: Go to bed 30 minutes earlier than usual.
 2. Eat Complex Carbs: Sweet potatoes, oats, and brown rice help stabilize serotonin levels.
-3. Gentle Movement: Swap HIIT for yoga or walking.\`
+3. Gentle Movement: Swap HIIT for yoga or walking.`
   },
   {
     id: 2,
@@ -59,7 +59,7 @@ When you feel overwhelmed, find:
 4 things you can feel
 3 things you can hear
 2 things you can smell
-1 thing you can taste\`
+1 thing you can taste`
   },
   {
     id: 3,
@@ -78,7 +78,7 @@ Why: Flax seeds contain lignans which bind to excess estrogen. Pumpkin seeds are
 Phase 2: Luteal Phase (Ovulation to Period)
 Goal: Support Progesterone Production
 Seeds: 1 tbsp Sesame seeds + 1 tbsp Sunflower seeds daily.
-Why: Sesame seeds block excess estrogen. Sunflower seeds are high in selenium and Vitamin E, which support progesterone levels.\`
+Why: Sesame seeds block excess estrogen. Sunflower seeds are high in selenium and Vitamin E, which support progesterone levels.`
   },
   {
     id: 4,
@@ -95,7 +95,7 @@ Key Steps for Protection:
 2. Review App Permissions: Regularly check what apps have access to your location, camera, and microphone.
 3. Two-Factor Authentication (2FA): Enable 2FA on all sensitive accounts.
 4. Metadata Awareness: Remember that photos you share often contain location data (EXIF). Scrub this data before posting publicly if you want to remain anonymous.
-5. Emerald's Promise: We store your sensitive health data locally on your device whenever possible, giving you full control.\`
+5. Emerald's Promise: We store your sensitive health data locally on your device whenever possible, giving you full control.`
   },
   {
     id: 5,
@@ -104,7 +104,7 @@ Key Steps for Protection:
     readTime: "8 min read",
     image: "bg-pink-300",
     description: "Early warning signs of Polycystic Ovary Syndrome and when to see a doctor.",
-    content: \`Polycystic Ovary Syndrome (PCOS) affects 1 in 10 women of childbearing age. Early detection can prevent long-term complications.
+    content: `Polycystic Ovary Syndrome (PCOS) affects 1 in 10 women of childbearing age. Early detection can prevent long-term complications.
 
 Common Symptoms:
 Irregular Periods: Fewer than 9 periods a year or cycles longer than 35 days.
@@ -112,7 +112,7 @@ Excess Androgen: High levels of "male" hormones resulting in physical signs like
 Polycystic Ovaries: Your ovaries might be enlarged and contain follicles that surround the eggs.
 
 What to Do:
-If you have at least two of these symptoms, consult a healthcare provider. Lifestyle changes, including a low-glycemic diet and regular exercise, are often the first line of treatment.\`
+If you have at least two of these symptoms, consult a healthcare provider. Lifestyle changes, including a low-glycemic diet and regular exercise, are often the first line of treatment.`
   },
   {
     id: 6,
@@ -121,7 +121,7 @@ If you have at least two of these symptoms, consult a healthcare provider. Lifes
     readTime: "10 min read",
     image: "bg-rose-200",
     description: "A complete guide to understanding your menstrual cycle phases and how they affect your brain and body.",
-    content: \`Your menstrual cycle is more than just your period. It's a continuous 28-ish day rhythm with four distinct seasons, each bringing different strengths and energy levels.
+    content: `Your menstrual cycle is more than just your period. It's a continuous 28-ish day rhythm with four distinct seasons, each bringing different strengths and energy levels.
 
 1. Menstrual Phase (Winter)
 Days 1-5
@@ -145,7 +145,7 @@ Superpower: Communication and connection. Schedule important meetings or dates n
 Days 18-28
 What's happening: Progesterone rises. The body prepares for a potential pregnancy.
 How you feel: Calmer, detail-oriented, potentially moody if hormones are unbalanced.
-Superpower: Focus and finishing tasks. It's the "get things done" phase.\`
+Superpower: Focus and finishing tasks. It's the "get things done" phase.`
   },
   {
     id: 7,
@@ -172,7 +172,7 @@ Scientific Ways to Stabilize Mood:
    Mood swings are often exaggerated by blood sugar crashes. Eat protein and healthy fats with every meal, especially in your Luteal phase.
 
 3. Sunlight & Vitamin D:
-   Aim for 10-15 minutes of morning sunlight to regulate your circadian rhythm, which helps balance serotonin levels naturally.\`
+   Aim for 10-15 minutes of morning sunlight to regulate your circadian rhythm, which helps balance serotonin levels naturally.`
   },
 ];
 

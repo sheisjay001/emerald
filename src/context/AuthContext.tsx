@@ -1,7 +1,8 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode } from "react";
+import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { useRouter } from "next/navigation";
+import { LocalStorage } from "@/lib/storage";
 
 interface User {
   email: string;
@@ -19,8 +20,17 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Start loading to check storage
   const router = useRouter();
+
+  useEffect(() => {
+    // Check local storage for persisted session
+    const storedUser = LocalStorage.getItem("user");
+    if (storedUser) {
+      setUser(storedUser);
+    }
+    setIsLoading(false);
+  }, []);
 
   const login = async (email: string, password?: string) => {
     setIsLoading(true);
@@ -34,17 +44,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (res.ok) {
         const data = await res.json();
         setUser(data.user);
+        LocalStorage.setItem("user", data.user, true); // Encrypted persistence
         router.push("/dashboard");
       } else {
         // Fallback for demo/preview if API fails or DB not connected
         console.warn("API login failed, falling back to mock");
-        setUser({ email, name: email.split("@")[0] });
+        const mockUser = { email, name: email.split("@")[0] };
+        setUser(mockUser);
+        LocalStorage.setItem("user", mockUser, true); // Encrypted persistence
         router.push("/dashboard");
       }
     } catch (error) {
       console.error("Login error", error);
       // Fallback
-      setUser({ email, name: email.split("@")[0] });
+      const mockUser = { email, name: email.split("@")[0] };
+      setUser(mockUser);
+      LocalStorage.setItem("user", mockUser, true); // Encrypted persistence
       router.push("/dashboard");
     } finally {
       setIsLoading(false);
@@ -53,6 +68,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = () => {
     setUser(null);
+    LocalStorage.removeItem("user");
     router.push("/login");
   };
 

@@ -72,34 +72,46 @@ export default function HealthPage() {
     const alerts: typeof healthAlerts = [];
     
     // PCOS Pattern (Mock: Acne + Irregularity indicators)
-    if (selectedSymptoms.includes("Acne") && selectedSymptoms.includes("High Libido")) {
+    // In a real app, this would analyze 3+ months of cycle length variance and androgen symptoms
+    if ((selectedSymptoms.includes("Acne") || selectedSymptoms.includes("Excess Hair")) && (selectedSymptoms.includes("Irregular Periods") || selectedSymptoms.includes("High Libido"))) {
       alerts.push({
-        title: "Possible Hormonal Imbalance",
-        message: "Recurring acne combined with androgen symptoms could indicate PCOS. Consider consulting a specialist.",
+        title: "PCOS Risk Pattern Detected",
+        message: "Your logged symptoms (Acne, Libido changes) align with common PCOS patterns. We recommend tracking your cycle length closely and consulting a specialist.",
         severity: "medium"
       });
     }
 
     // Endometriosis Pattern (Mock: Severe Pain combo)
-    if (selectedSymptoms.includes("Cramps") && selectedSymptoms.includes("Backache") && selectedSymptoms.includes("Digestive Issues")) {
+    // Real app: Tracks pain intensity > 7/10 for 2+ days
+    if (selectedSymptoms.includes("Cramps") && (selectedSymptoms.includes("Backache") || selectedSymptoms.includes("Pelvic Pain")) && selectedSymptoms.includes("Digestive Issues")) {
       alerts.push({
-        title: "High Pain Pattern Detected",
-        message: "This combination of symptoms is consistent with Endometriosis patterns. Please track pain intensity closely.",
+        title: "High Pain Pattern (Endo Risk)",
+        message: "The combination of cramps, back pain, and digestive issues is often associated with Endometriosis. Please consider discussing this with your OBGYN.",
         severity: "high"
       });
     }
 
     // Anemia Risk (Mock)
-    if (selectedSymptoms.includes("Brain Fog") && selectedSymptoms.includes("Insomnia")) {
+    // Real app: Tracks heavy flow days + fatigue
+    if ((selectedSymptoms.includes("Brain Fog") || selectedSymptoms.includes("Dizziness")) && (selectedSymptoms.includes("Insomnia") || selectedSymptoms.includes("Fatigue"))) {
       alerts.push({
-        title: "Fatigue & Anemia Risk",
-        message: "Persistent brain fog and sleep issues may suggest iron deficiency. Consider a blood test.",
+        title: "Potential Iron Deficiency (Anemia)",
+        message: "Persistent fatigue, brain fog, or dizziness can be signs of Anemia, especially during your period. Consider an iron-rich diet or a blood test.",
         severity: "low"
+      });
+    }
+    
+    // PMDD Pattern
+    if (selectedMood === "Sad" && selectedMood === "Anxious" && selectedSymptoms.includes("Bloating")) {
+       alerts.push({
+        title: "PMDD Pattern Detected",
+        message: "Severe mood shifts combined with physical symptoms before your period may indicate PMDD.",
+        severity: "medium"
       });
     }
 
     setHealthAlerts(alerts);
-  }, [selectedSymptoms]);
+  }, [selectedSymptoms, selectedMood]);
 
   useEffect(() => {
     if (selectedSymptoms.includes("Headache") || selectedSymptoms.includes("Migraine")) {
@@ -123,11 +135,33 @@ export default function HealthPage() {
 
   const handleSave = async () => {
     setIsSaving(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    setIsSaving(false);
-    // Reset form or show success message
-    alert("Health entry saved successfully!");
+    
+    // Create entry object
+    const entry = {
+      date: new Date().toISOString(),
+      mood: selectedMood,
+      symptoms: selectedSymptoms,
+      note: note
+    };
+
+    try {
+      // Get existing logs
+      const existingLogs = LocalStorage.getItem("health_logs") || [];
+      const updatedLogs = [...existingLogs, entry];
+      
+      // Save encrypted
+      LocalStorage.setItem("health_logs", updatedLogs, true);
+      
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
+      setIsSaving(false);
+      alert("Health entry saved securely to local storage! (Encrypted)");
+    } catch (error) {
+      console.error("Save error:", error);
+      setIsSaving(false);
+      alert("Failed to save entry.");
+    }
   };
 
   return (
