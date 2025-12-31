@@ -1,6 +1,33 @@
 # Emerald: Next-Gen Women’s Health & Wellness App
 
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fsheisjay001%2Femerald)
+
 A privacy-first, AI-powered web application designed to support women by offering personalized menstrual tracking, mental health integration, real-time medical insights, and protection from online harassment.
+
+---
+
+## Quick Start (Demo)
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/sheisjay001/emerald.git
+   cd emerald
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+4. **Open in browser**
+   Visit [http://localhost:3000](http://localhost:3000)
+
+> **Note**: For the full experience with database persistence, set up a PostgreSQL database and add `DATABASE_URL` to your `.env` file. Without it, the app runs in **Demo Mode** using mock data.
 
 ---
 
