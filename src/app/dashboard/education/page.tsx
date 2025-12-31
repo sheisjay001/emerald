@@ -19,7 +19,7 @@ const ARTICLES = [
     readTime: "5 min read",
     image: "bg-pink-200",
     description: "Why do you feel tired and hungry before your period? The science behind progesterone explained.",
-    content: \`The luteal phase is the second half of your menstrual cycle, starting after ovulation and ending when your next period begins. It typically lasts 12-14 days.
+    content: `The luteal phase is the second half of your menstrual cycle, starting after ovulation and ending when your next period begins. It typically lasts 12-14 days.
 
 During this time, your progesterone levels rise. Progesterone is known as the "calming hormone," but it also has physical effects that can feel like PMS.
 
@@ -40,7 +40,7 @@ How to Support Yourself:
     readTime: "7 min read",
     image: "bg-purple-200",
     description: "Breathing techniques and mindfulness practices to reduce cycle-related anxiety.",
-    content: \`Cycle-related anxiety, often linked to PMDD or severe PMS, is real and valid. It's caused by the rapid drop in hormones before menstruation.
+    content: `Cycle-related anxiety, often linked to PMDD or severe PMS, is real and valid. It's caused by the rapid drop in hormones before menstruation.
 
 Techniques to Try:
 
@@ -68,7 +68,7 @@ When you feel overwhelmed, find:
     readTime: "4 min read",
     image: "bg-green-200",
     description: "How to use seeds to balance your hormones throughout your cycle naturally.",
-    content: \`Seed cycling involves eating specific seeds during the two main phases of your menstrual cycle to help promote the healthy balance of estrogen and progesterone levels.
+    content: `Seed cycling involves eating specific seeds during the two main phases of your menstrual cycle to help promote the healthy balance of estrogen and progesterone levels.
 
 Phase 1: Follicular Phase (Day 1 to Ovulation)
 Goal: Support Estrogen Production
@@ -87,7 +87,7 @@ Why: Sesame seeds block excess estrogen. Sunflower seeds are high in selenium an
     readTime: "6 min read",
     image: "bg-blue-200",
     description: "Essential steps to protect your digital footprint and stay safe online.",
-    content: \`In an age where data is the new oil, protecting your digital privacy is crucial, especially for health data.
+    content: `In an age where data is the new oil, protecting your digital privacy is crucial, especially for health data.
 
 Key Steps for Protection:
 
@@ -154,7 +154,7 @@ Superpower: Focus and finishing tasks. It's the "get things done" phase.\`
     readTime: "8 min read",
     image: "bg-indigo-200",
     description: "Why your mood fluctuates throughout the month and scientific ways to stabilize it.",
-    content: \`Ever feel like a completely different person depending on the week? That's not "just in your head"—it's in your hormones.
+    content: `Ever feel like a completely different person depending on the week? That's not "just in your head"—it's in your hormones.
 
 The Estrogen-Serotonin Connection
 In the first half of your cycle (Follicular/Ovulatory), rising estrogen boosts serotonin (the happiness chemical) and dopamine (the reward chemical). This is why you often feel optimistic and motivated.
