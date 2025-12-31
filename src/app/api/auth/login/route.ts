@@ -14,7 +14,7 @@ export async function POST(request: Request) {
       where: { email },
     });
 
-    if (!user || user.passwordHash !== password) { // Simple check for demo
+    if (!user || user.password !== password) { // Simple check for demo
       return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
     }
 

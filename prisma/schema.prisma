@@ -6,7 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -58,7 +59,7 @@ model HealthLog {
   
   // Data
   mood      String?
-  symptoms  String[]
+  symptoms  String // Stored as comma-separated string
   notes     String?
   energy    Int?     // 1-10 scale
   pain      Int?     // 1-10 scale

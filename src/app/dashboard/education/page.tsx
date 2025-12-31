@@ -114,6 +114,66 @@ When you feel overwhelmed, find:
 **What to Do:**
 If you have at least two of these symptoms, consult a healthcare provider. Lifestyle changes, including a low-glycemic diet and regular exercise, are often the first line of treatment.`
   },
+  {
+    id: 6,
+    title: "The 4 Phases Explained",
+    category: "cycle",
+    readTime: "10 min read",
+    image: "bg-rose-200",
+    description: "A complete guide to understanding your menstrual cycle phases and how they affect your brain and body.",
+    content: `Your menstrual cycle is more than just your period. It's a continuous 28-ish day rhythm with four distinct seasons, each bringing different strengths and energy levels.
+
+**1. Menstrual Phase (Winter)**
+*Days 1-5*
+- **What's happening:** Hormones are at their lowest. Your uterine lining is shedding.
+- **How you feel:** Tired, inward-focused, reflective.
+- **Superpower:** Intuition and evaluation. It's a great time to journal and reassess your goals.
+
+**2. Follicular Phase (Spring)**
+*Days 6-14*
+- **What's happening:** Estrogen starts to rise. An egg is preparing to be released.
+- **How you feel:** Energetic, creative, social.
+- **Superpower:** Brainstorming and beginning new projects. Your brain is primed for learning and complex problem-solving.
+
+**3. Ovulatory Phase (Summer)**
+*Days 15-17*
+- **What's happening:** Estrogen peaks; testosterone surges slightly. The egg is released.
+- **How you feel:** Confident, magnetic, communicative.
+- **Superpower:** Communication and connection. Schedule important meetings or dates now.
+
+**4. Luteal Phase (Autumn)**
+*Days 18-28*
+- **What's happening:** Progesterone rises. The body prepares for a potential pregnancy.
+- **How you feel:** Calmer, detail-oriented, potentially moody if hormones are unbalanced.
+- **Superpower:** Focus and finishing tasks. It's the "get things done" phase.`
+  },
+  {
+    id: 7,
+    title: "Hormones & Happiness",
+    category: "mental",
+    readTime: "8 min read",
+    image: "bg-indigo-200",
+    description: "Why your mood fluctuates throughout the month and scientific ways to stabilize it.",
+    content: `Ever feel like a completely different person depending on the week? That's not "just in your head"—it's in your hormones.
+
+**The Estrogen-Serotonin Connection**
+In the first half of your cycle (Follicular/Ovulatory), rising estrogen boosts serotonin (the happiness chemical) and dopamine (the reward chemical). This is why you often feel optimistic and motivated.
+
+**The Progesterone Shift**
+In the second half (Luteal), estrogen drops and progesterone rises. Progesterone stimulates GABA receptors, which have a sedating, calming effect. While this can be relaxing, a sharp drop in progesterone before your period can lead to anxiety and irritability.
+
+**Scientific Ways to Stabilize Mood:**
+
+1. **Cycle-Sync Your Social Life:**
+   - *High Estrogen:* Go out, network, socialize.
+   - *High Progesterone:* Keep plans low-key, prioritize close friends or solo time.
+
+2. **Blood Sugar Balance:**
+   - Mood swings are often exaggerated by blood sugar crashes. Eat protein and healthy fats with every meal, especially in your Luteal phase.
+
+3. **Sunlight & Vitamin D:**
+   - Aim for 10-15 minutes of morning sunlight to regulate your circadian rhythm, which helps balance serotonin levels naturally.`
+  },
 ];
 
 export default function EducationPage() {
@@ -228,7 +288,10 @@ export default function EducationPage() {
               <span className="bg-white/20 px-3 py-1 rounded-full text-xs font-medium mb-3 inline-block">Start Here</span>
               <h3 className="text-2xl font-bold mb-2">The 4 Phases Explained</h3>
               <p className="text-pink-100 mb-6">A complete guide to understanding your menstrual cycle phases and how they affect your brain and body.</p>
-              <button className="bg-white text-pink-600 px-4 py-2 rounded-lg font-medium text-sm hover:bg-pink-50 transition-colors">
+              <button 
+                onClick={() => setSelectedArticle(ARTICLES.find(a => a.id === 6) || null)}
+                className="bg-white text-pink-600 px-4 py-2 rounded-lg font-medium text-sm hover:bg-pink-50 transition-colors"
+              >
                 Start Reading
               </button>
             </div>
@@ -236,7 +299,10 @@ export default function EducationPage() {
               <span className="bg-white/20 px-3 py-1 rounded-full text-xs font-medium mb-3 inline-block">Mental Health</span>
               <h3 className="text-2xl font-bold mb-2">Hormones & Happiness</h3>
               <p className="text-indigo-100 mb-6">Why your mood fluctuates throughout the month and scientific ways to stabilize it.</p>
-              <button className="bg-white text-indigo-600 px-4 py-2 rounded-lg font-medium text-sm hover:bg-indigo-50 transition-colors">
+              <button 
+                onClick={() => setSelectedArticle(ARTICLES.find(a => a.id === 7) || null)}
+                className="bg-white text-indigo-600 px-4 py-2 rounded-lg font-medium text-sm hover:bg-indigo-50 transition-colors"
+              >
                 Start Reading
               </button>
             </div>

@@ -22,7 +22,7 @@ export async function POST(request: Request) {
     const user = await prisma.user.create({
       data: {
         email,
-        passwordHash: password, // Storing plain for demo purposes
+        password: password, // Storing plain for demo purposes
         name,
       },
     });
