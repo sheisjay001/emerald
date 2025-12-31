@@ -19,6 +19,19 @@ const ARTICLES = [
     readTime: "5 min read",
     image: "bg-pink-200",
     description: "Why do you feel tired and hungry before your period? The science behind progesterone explained.",
+    content: `The luteal phase is the second half of your menstrual cycle, starting after ovulation and ending when your next period begins. It typically lasts 12-14 days.
+
+During this time, your progesterone levels rise. Progesterone is known as the "calming hormone," but it also has physical effects that can feel like PMS.
+
+**Key Changes in Your Body:**
+- **Increased Metabolism:** Your body actually burns more calories during this phase (100-300 extra per day), which explains the hunger!
+- **Water Retention:** You might feel bloated as your body holds onto fluids.
+- **Lower Energy:** As progesterone rises, you may feel more tired or sluggish. This is a signal from your body to slow down.
+
+**How to Support Yourself:**
+1. **Prioritize Rest:** Go to bed 30 minutes earlier than usual.
+2. **Eat Complex Carbs:** Sweet potatoes, oats, and brown rice help stabilize serotonin levels.
+3. **Gentle Movement:** Swap HIIT for yoga or walking.`
   },
   {
     id: 2,
@@ -27,6 +40,26 @@ const ARTICLES = [
     readTime: "7 min read",
     image: "bg-purple-200",
     description: "Breathing techniques and mindfulness practices to reduce cycle-related anxiety.",
+    content: `Cycle-related anxiety, often linked to PMDD or severe PMS, is real and valid. It's caused by the rapid drop in hormones before menstruation.
+
+**Techniques to Try:**
+
+**1. The 4-7-8 Breathing Method**
+- Inhale quietly through the nose for 4 seconds.
+- Hold the breath for 7 seconds.
+- Exhale forcefully through the mouth for 8 seconds.
+- Repeat 4 times.
+
+**2. Magnesium Glycinate**
+Consider supplementing with magnesium (consult your doctor first). It's known as "nature's relaxant" and can help with both anxiety and cramps.
+
+**3. Sensory Grounding**
+When you feel overwhelmed, find:
+- 5 things you can see
+- 4 things you can feel
+- 3 things you can hear
+- 2 things you can smell
+- 1 thing you can taste`
   },
   {
     id: 3,
@@ -35,6 +68,17 @@ const ARTICLES = [
     readTime: "4 min read",
     image: "bg-green-200",
     description: "How to use seeds to balance your hormones throughout your cycle naturally.",
+    content: `Seed cycling involves eating specific seeds during the two main phases of your menstrual cycle to help promote the healthy balance of estrogen and progesterone levels.
+
+**Phase 1: Follicular Phase (Day 1 to Ovulation)**
+*Goal: Support Estrogen Production*
+- **Seeds:** 1 tbsp Flax seeds + 1 tbsp Pumpkin seeds daily.
+- **Why:** Flax seeds contain lignans which bind to excess estrogen. Pumpkin seeds are high in zinc, which supports progesterone production for the next phase.
+
+**Phase 2: Luteal Phase (Ovulation to Period)**
+*Goal: Support Progesterone Production*
+- **Seeds:** 1 tbsp Sesame seeds + 1 tbsp Sunflower seeds daily.
+- **Why:** Sesame seeds block excess estrogen. Sunflower seeds are high in selenium and Vitamin E, which support progesterone levels.`
   },
   {
     id: 4,
@@ -43,6 +87,15 @@ const ARTICLES = [
     readTime: "6 min read",
     image: "bg-blue-200",
     description: "Essential steps to protect your digital footprint and stay safe online.",
+    content: `In an age where data is the new oil, protecting your digital privacy is crucial, especially for health data.
+
+**Key Steps for Protection:**
+
+1. **Use Privacy-First Browsers:** Switch to browsers like Brave or Firefox that block trackers by default.
+2. **Review App Permissions:** Regularly check what apps have access to your location, camera, and microphone.
+3. **Two-Factor Authentication (2FA):** Enable 2FA on all sensitive accounts.
+4. **Metadata Awareness:** Remember that photos you share often contain location data (EXIF). Scrub this data before posting publicly if you want to remain anonymous.
+5. **Emerald's Promise:** We store your sensitive health data locally on your device whenever possible, giving you full control.`
   },
   {
     id: 5,
@@ -51,12 +104,23 @@ const ARTICLES = [
     readTime: "8 min read",
     image: "bg-pink-300",
     description: "Early warning signs of Polycystic Ovary Syndrome and when to see a doctor.",
+    content: `Polycystic Ovary Syndrome (PCOS) affects 1 in 10 women of childbearing age. Early detection can prevent long-term complications.
+
+**Common Symptoms:**
+- **Irregular Periods:** Fewer than 9 periods a year or cycles longer than 35 days.
+- **Excess Androgen:** High levels of "male" hormones resulting in physical signs like excess facial or body hair (hirsutism) or severe acne.
+- **Polycystic Ovaries:** Your ovaries might be enlarged and contain follicles that surround the eggs.
+
+**What to Do:**
+If you have at least two of these symptoms, consult a healthcare provider. Lifestyle changes, including a low-glycemic diet and regular exercise, are often the first line of treatment.`
   },
 ];
 
 export default function EducationPage() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
+
+  const [selectedArticle, setSelectedArticle] = useState<typeof ARTICLES[0] | null>(null);
 
   const filteredArticles = ARTICLES.filter(article => {
     const matchesCategory = selectedCategory === "all" || article.category === selectedCategory;
@@ -66,7 +130,47 @@ export default function EducationPage() {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative">
+      {/* Article Modal */}
+      {selectedArticle && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 overflow-y-auto">
+          <div className="min-h-screen px-4 text-center">
+            {/* This element is to trick the browser into centering the modal contents. */}
+            <span className="inline-block h-screen align-middle" aria-hidden="true">&#8203;</span>
+            <motion.div 
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-block w-full max-w-2xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-card shadow-xl rounded-2xl border border-border relative"
+            >
+              <button 
+                onClick={() => setSelectedArticle(null)}
+                className="absolute top-4 right-4 p-2 rounded-full hover:bg-secondary transition-colors"
+              >
+                ✕
+              </button>
+              
+              <div className={`h-48 -mx-6 -mt-6 mb-6 ${selectedArticle.image} relative`}>
+                <div className="absolute bottom-0 left-0 p-6 bg-gradient-to-t from-black/60 to-transparent w-full">
+                  <span className="text-white/90 text-sm font-medium uppercase tracking-wider bg-black/20 px-2 py-1 rounded backdrop-blur-sm">
+                    {CATEGORIES.find(c => c.id === selectedArticle.category)?.name}
+                  </span>
+                </div>
+              </div>
+
+              <h2 className="text-3xl font-bold text-foreground mb-4">{selectedArticle.title}</h2>
+              <div className="prose prose-sm sm:prose lg:prose-lg dark:prose-invert max-w-none text-muted-foreground">
+                <p className="lead text-lg text-foreground font-medium mb-4">{selectedArticle.description}</p>
+                {selectedArticle.content ? (
+                  <div className="whitespace-pre-wrap">{selectedArticle.content}</div>
+                ) : (
+                  <p>Full article content would appear here. This is a preview of the educational material.</p>
+                )}
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-foreground">Health Education</h1>
@@ -148,6 +252,7 @@ export default function EducationPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.1 }}
+            onClick={() => setSelectedArticle(article)}
             className="group bg-card rounded-xl border border-border overflow-hidden hover:shadow-md transition-all cursor-pointer"
           >
             <div className={`h-48 ${article.image} relative`}>

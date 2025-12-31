@@ -16,15 +16,27 @@ const cycleData = {
 
 export default function TrackerPage() {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
-  
-  // Custom modifiers for highlighting phases
-  const periodDays = [
+  const [isLogModalOpen, setIsLogModalOpen] = useState(false);
+  const [periodDays, setPeriodDays] = useState<Date[]>([
     new Date(2024, 11, 24),
     new Date(2024, 11, 25),
     new Date(2024, 11, 26),
     new Date(2024, 11, 27),
     new Date(2024, 11, 28),
-  ];
+  ]);
+
+  const handleLogPeriod = (start: Date, days: number) => {
+    const newDays = [];
+    for (let i = 0; i < days; i++) {
+      newDays.push(addDays(start, i));
+    }
+    // Merge with existing (simple dedup)
+    const uniqueDays = [...periodDays, ...newDays].filter((date, i, self) => 
+      self.findIndex(d => d.getTime() === date.getTime()) === i
+    );
+    setPeriodDays(uniqueDays);
+    setIsLogModalOpen(false);
+  };
 
   const ovulationDay = new Date(2025, 0, 7); // Jan 7, 2025
   const fertileWindow = [
@@ -36,13 +48,53 @@ export default function TrackerPage() {
   ];
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 relative">
+      {/* Log Period Modal */}
+      {isLogModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="bg-card w-full max-w-md rounded-xl p-6 shadow-xl border border-border"
+          >
+            <h2 className="text-xl font-bold mb-4">Log Period</h2>
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              const formData = new FormData(e.currentTarget);
+              const dateStr = formData.get("startDate") as string;
+              const duration = parseInt(formData.get("duration") as string);
+              if (dateStr && duration) {
+                handleLogPeriod(new Date(dateStr), duration);
+              }
+            }}>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium mb-1">Start Date</label>
+                  <input type="date" name="startDate" required className="w-full rounded-md border border-input bg-background px-3 py-2" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1">Duration (Days)</label>
+                  <input type="number" name="duration" defaultValue={5} min={1} max={10} className="w-full rounded-md border border-input bg-background px-3 py-2" />
+                </div>
+                <div className="flex justify-end gap-2 mt-6">
+                  <button type="button" onClick={() => setIsLogModalOpen(false)} className="px-4 py-2 text-sm font-medium hover:bg-secondary rounded-md">Cancel</button>
+                  <button type="submit" className="px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-md hover:bg-primary/90">Save</button>
+                </div>
+              </div>
+            </form>
+          </motion.div>
+        </div>
+      )}
+
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-bold text-foreground">Cycle Tracker</h1>
           <p className="text-muted-foreground">Monitor your cycle, fertility, and symptoms.</p>
         </div>
-        <button className="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-full font-medium shadow-sm transition-colors">
+        <button 
+          onClick={() => setIsLogModalOpen(true)}
+          className="bg-primary hover:bg-primary/90 text-white px-5 py-2 rounded-full font-medium shadow-sm transition-colors"
+        >
           Log Period
         </button>
       </div>
