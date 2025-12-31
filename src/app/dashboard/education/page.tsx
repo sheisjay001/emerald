@@ -203,7 +203,7 @@ export default function EducationPage() {
               <div className="relative">
                 <button 
                   onClick={() => setSelectedArticle(null)}
-                  className="absolute top-4 right-4 z-10 p-2 rounded-full bg-black/20 text-white hover:bg-black/40 transition-colors backdrop-blur-sm"
+                  className="absolute top-4 right-4 z-10 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors backdrop-blur-sm"
                 >
                   <span className="sr-only">Close</span>
                   ✕
@@ -219,6 +219,14 @@ export default function EducationPage() {
               </div>
 
               <div className="p-4 md:p-8 flex-1 overflow-y-auto">
+                <button 
+                  onClick={() => setSelectedArticle(null)}
+                  className="mb-4 flex items-center text-sm text-muted-foreground hover:text-primary transition-colors md:hidden"
+                >
+                  <ChevronRight className="h-4 w-4 rotate-180 mr-1" />
+                  Back to Articles
+                </button>
+
                 <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4 leading-tight">{selectedArticle.title}</h2>
                 <div className="prose prose-sm sm:prose lg:prose-lg dark:prose-invert max-w-none text-muted-foreground pb-8">
                   <p className="lead text-base md:text-lg text-foreground font-medium mb-4">{selectedArticle.description}</p>
@@ -227,6 +235,16 @@ export default function EducationPage() {
                   ) : (
                     <p>Full article content would appear here. This is a preview of the educational material.</p>
                   )}
+                </div>
+
+                <div className="border-t border-border pt-6 mt-8">
+                  <button 
+                    onClick={() => setSelectedArticle(null)}
+                    className="w-full md:w-auto flex items-center justify-center px-6 py-3 rounded-lg bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-colors font-medium"
+                  >
+                    <ChevronRight className="h-4 w-4 rotate-180 mr-2" />
+                    Back to Education Hub
+                  </button>
                 </div>
               </div>
             </motion.div>
