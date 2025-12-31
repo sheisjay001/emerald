@@ -190,41 +190,44 @@ export default function EducationPage() {
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-8 relative">
       {/* Article Modal */}
       {selectedArticle && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 overflow-y-auto">
-          <div className="min-h-screen px-4 text-center">
-            {/* This element is to trick the browser into centering the modal contents. */}
-            <span className="inline-block h-screen align-middle" aria-hidden="true">&#8203;</span>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-0 md:p-4 overflow-y-auto">
+          <div className="min-h-screen px-0 md:px-4 text-center flex items-center justify-center w-full">
             <motion.div 
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
-              className="inline-block w-full max-w-2xl p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-card shadow-xl rounded-2xl border border-border relative"
+              className="inline-block w-full max-w-2xl bg-card shadow-xl md:rounded-2xl border border-border relative text-left overflow-hidden my-0 md:my-8 min-h-screen md:min-h-0 flex flex-col"
             >
-              <button 
-                onClick={() => setSelectedArticle(null)}
-                className="absolute top-4 right-4 p-2 rounded-full hover:bg-secondary transition-colors"
-              >
-                ✕
-              </button>
-              
-              <div className={`h-48 -mx-6 -mt-6 mb-6 ${selectedArticle.image} relative`}>
-                <div className="absolute bottom-0 left-0 p-6 bg-gradient-to-t from-black/60 to-transparent w-full">
-                  <span className="text-white/90 text-sm font-medium uppercase tracking-wider bg-black/20 px-2 py-1 rounded backdrop-blur-sm">
-                    {CATEGORIES.find(c => c.id === selectedArticle.category)?.name}
-                  </span>
+              <div className="relative">
+                <button 
+                  onClick={() => setSelectedArticle(null)}
+                  className="absolute top-4 right-4 z-10 p-2 rounded-full bg-black/20 text-white hover:bg-black/40 transition-colors backdrop-blur-sm"
+                >
+                  <span className="sr-only">Close</span>
+                  ✕
+                </button>
+                
+                <div className={`h-48 md:h-64 ${selectedArticle.image} relative w-full`}>
+                  <div className="absolute bottom-0 left-0 p-4 md:p-6 bg-gradient-to-t from-black/60 to-transparent w-full">
+                    <span className="text-white/90 text-xs md:text-sm font-medium uppercase tracking-wider bg-black/20 px-2 py-1 rounded backdrop-blur-sm">
+                      {CATEGORIES.find(c => c.id === selectedArticle.category)?.name}
+                    </span>
+                  </div>
                 </div>
               </div>
 
-              <h2 className="text-3xl font-bold text-foreground mb-4">{selectedArticle.title}</h2>
-              <div className="prose prose-sm sm:prose lg:prose-lg dark:prose-invert max-w-none text-muted-foreground">
-                <p className="lead text-lg text-foreground font-medium mb-4">{selectedArticle.description}</p>
-                {selectedArticle.content ? (
-                  <div className="whitespace-pre-wrap">{selectedArticle.content}</div>
-                ) : (
-                  <p>Full article content would appear here. This is a preview of the educational material.</p>
-                )}
+              <div className="p-4 md:p-8 flex-1 overflow-y-auto">
+                <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4 leading-tight">{selectedArticle.title}</h2>
+                <div className="prose prose-sm sm:prose lg:prose-lg dark:prose-invert max-w-none text-muted-foreground pb-8">
+                  <p className="lead text-base md:text-lg text-foreground font-medium mb-4">{selectedArticle.description}</p>
+                  {selectedArticle.content ? (
+                    <div className="whitespace-pre-wrap text-sm md:text-base">{selectedArticle.content}</div>
+                  ) : (
+                    <p>Full article content would appear here. This is a preview of the educational material.</p>
+                  )}
+                </div>
               </div>
             </motion.div>
           </div>
@@ -232,13 +235,13 @@ export default function EducationPage() {
       )}
 
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-foreground">Health Education</h1>
-        <p className="text-muted-foreground mt-2">Expert-backed insights to understand your body better.</p>
+      <div className="mb-6 md:mb-8">
+        <h1 className="text-2xl md:text-3xl font-bold text-foreground">Health Education</h1>
+        <p className="text-sm md:text-base text-muted-foreground mt-2">Expert-backed insights to understand your body better.</p>
       </div>
 
       {/* Search and Filter */}
-      <div className="flex flex-col md:flex-row gap-4 mb-8">
+      <div className="flex flex-col md:flex-row gap-4 mb-6 md:mb-8">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
           <input
@@ -246,15 +249,15 @@ export default function EducationPage() {
             placeholder="Search for topics..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 rounded-lg border border-input bg-background focus:ring-2 focus:ring-primary focus:border-transparent outline-none"
+            className="w-full pl-10 pr-4 py-2.5 md:py-2 rounded-lg border border-input bg-background focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-sm md:text-base shadow-sm"
           />
         </div>
-        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
           <button
             onClick={() => setSelectedCategory("all")}
-            className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
+            className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors flex-shrink-0 ${
               selectedCategory === "all" 
-                ? "bg-primary text-primary-foreground" 
+                ? "bg-primary text-primary-foreground shadow-sm" 
                 : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
             }`}
           >
@@ -264,9 +267,9 @@ export default function EducationPage() {
             <button
               key={cat.id}
               onClick={() => setSelectedCategory(cat.id)}
-              className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
+              className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors flex-shrink-0 ${
                 selectedCategory === cat.id
-                  ? "bg-primary text-primary-foreground"
+                  ? "bg-primary text-primary-foreground shadow-sm"
                   : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
               }`}
             >
@@ -278,40 +281,44 @@ export default function EducationPage() {
 
       {/* Featured Section (only show when no search/filter) */}
       {selectedCategory === "all" && !searchQuery && (
-        <div className="mb-12">
-          <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+        <div className="mb-8 md:mb-12">
+          <h2 className="text-lg md:text-xl font-semibold mb-4 flex items-center gap-2">
             <PlayCircle className="text-primary h-5 w-5" />
             Featured Series: Cycle Syncing
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl p-6 text-white shadow-lg">
-              <span className="bg-white/20 px-3 py-1 rounded-full text-xs font-medium mb-3 inline-block">Start Here</span>
-              <h3 className="text-2xl font-bold mb-2">The 4 Phases Explained</h3>
-              <p className="text-pink-100 mb-6">A complete guide to understanding your menstrual cycle phases and how they affect your brain and body.</p>
-              <button 
-                onClick={() => setSelectedArticle(ARTICLES.find(a => a.id === 6) || null)}
-                className="bg-white text-pink-600 px-4 py-2 rounded-lg font-medium text-sm hover:bg-pink-50 transition-colors"
-              >
-                Start Reading
-              </button>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+            <div className="bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl p-5 md:p-6 text-white shadow-lg relative overflow-hidden">
+              <div className="relative z-10">
+                <span className="bg-white/20 px-3 py-1 rounded-full text-xs font-medium mb-3 inline-block backdrop-blur-sm">Start Here</span>
+                <h3 className="text-xl md:text-2xl font-bold mb-2">The 4 Phases Explained</h3>
+                <p className="text-pink-100 mb-4 md:mb-6 text-sm md:text-base">A complete guide to understanding your menstrual cycle phases and how they affect your brain and body.</p>
+                <button 
+                  onClick={() => setSelectedArticle(ARTICLES.find(a => a.id === 6) || null)}
+                  className="w-full md:w-auto bg-white text-pink-600 px-4 py-2.5 md:py-2 rounded-lg font-medium text-sm hover:bg-pink-50 transition-colors shadow-sm"
+                >
+                  Start Reading
+                </button>
+              </div>
             </div>
-            <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl p-6 text-white shadow-lg">
-              <span className="bg-white/20 px-3 py-1 rounded-full text-xs font-medium mb-3 inline-block">Mental Health</span>
-              <h3 className="text-2xl font-bold mb-2">Hormones & Happiness</h3>
-              <p className="text-indigo-100 mb-6">Why your mood fluctuates throughout the month and scientific ways to stabilize it.</p>
-              <button 
-                onClick={() => setSelectedArticle(ARTICLES.find(a => a.id === 7) || null)}
-                className="bg-white text-indigo-600 px-4 py-2 rounded-lg font-medium text-sm hover:bg-indigo-50 transition-colors"
-              >
-                Start Reading
-              </button>
+            <div className="bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl p-5 md:p-6 text-white shadow-lg relative overflow-hidden">
+              <div className="relative z-10">
+                <span className="bg-white/20 px-3 py-1 rounded-full text-xs font-medium mb-3 inline-block backdrop-blur-sm">Mental Health</span>
+                <h3 className="text-xl md:text-2xl font-bold mb-2">Hormones & Happiness</h3>
+                <p className="text-indigo-100 mb-4 md:mb-6 text-sm md:text-base">Why your mood fluctuates throughout the month and scientific ways to stabilize it.</p>
+                <button 
+                  onClick={() => setSelectedArticle(ARTICLES.find(a => a.id === 7) || null)}
+                  className="w-full md:w-auto bg-white text-indigo-600 px-4 py-2.5 md:py-2 rounded-lg font-medium text-sm hover:bg-indigo-50 transition-colors shadow-sm"
+                >
+                  Start Reading
+                </button>
+              </div>
             </div>
           </div>
         </div>
       )}
 
       {/* Articles Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 pb-20 md:pb-0">
         {filteredArticles.map((article, idx) => (
           <motion.div
             key={article.id}
@@ -319,25 +326,25 @@ export default function EducationPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.1 }}
             onClick={() => setSelectedArticle(article)}
-            className="group bg-card rounded-xl border border-border overflow-hidden hover:shadow-md transition-all cursor-pointer"
+            className="group bg-card rounded-xl border border-border overflow-hidden hover:shadow-md transition-all cursor-pointer flex flex-col"
           >
-            <div className={`h-48 ${article.image} relative`}>
+            <div className={`h-40 md:h-48 ${article.image} relative`}>
               <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors" />
             </div>
-            <div className="p-5">
+            <div className="p-4 md:p-5 flex-1 flex flex-col">
               <div className="flex items-center justify-between mb-3">
                 <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                   {CATEGORIES.find(c => c.id === article.category)?.name}
                 </span>
                 <span className="text-xs text-muted-foreground">{article.readTime}</span>
               </div>
-              <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors">
+              <h3 className="text-lg font-bold text-foreground mb-2 group-hover:text-primary transition-colors leading-snug">
                 {article.title}
               </h3>
-              <p className="text-muted-foreground text-sm line-clamp-2 mb-4">
+              <p className="text-muted-foreground text-sm line-clamp-2 mb-4 flex-1">
                 {article.description}
               </p>
-              <div className="flex items-center text-primary text-sm font-medium">
+              <div className="flex items-center text-primary text-sm font-medium mt-auto">
                 Read Article <ChevronRight className="h-4 w-4 ml-1" />
               </div>
             </div>
