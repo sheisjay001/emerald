@@ -15,7 +15,7 @@ import {
 import { useAuth } from "@/context/AuthContext";
 
 export default function SettingsPage() {
-  const { user, logout } = useAuth();
+  const { user, logout, updateUser } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [activeTab, setActiveTab] = useState("profile");
 
@@ -41,6 +41,10 @@ export default function SettingsPage() {
     setIsLoading(true);
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    // Update user context
+    updateUser({ name: settings.name, email: settings.email });
+    
     setIsLoading(false);
     alert("Settings saved successfully!");
   };
