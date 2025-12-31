@@ -19,19 +19,19 @@ const ARTICLES = [
     readTime: "5 min read",
     image: "bg-pink-200",
     description: "Why do you feel tired and hungry before your period? The science behind progesterone explained.",
-    content: `The luteal phase is the second half of your menstrual cycle, starting after ovulation and ending when your next period begins. It typically lasts 12-14 days.
+    content: \`The luteal phase is the second half of your menstrual cycle, starting after ovulation and ending when your next period begins. It typically lasts 12-14 days.
 
 During this time, your progesterone levels rise. Progesterone is known as the "calming hormone," but it also has physical effects that can feel like PMS.
 
-**Key Changes in Your Body:**
-- **Increased Metabolism:** Your body actually burns more calories during this phase (100-300 extra per day), which explains the hunger!
-- **Water Retention:** You might feel bloated as your body holds onto fluids.
-- **Lower Energy:** As progesterone rises, you may feel more tired or sluggish. This is a signal from your body to slow down.
+Key Changes in Your Body:
+- Increased Metabolism: Your body actually burns more calories during this phase (100-300 extra per day), which explains the hunger!
+- Water Retention: You might feel bloated as your body holds onto fluids.
+- Lower Energy: As progesterone rises, you may feel more tired or sluggish. This is a signal from your body to slow down.
 
-**How to Support Yourself:**
-1. **Prioritize Rest:** Go to bed 30 minutes earlier than usual.
-2. **Eat Complex Carbs:** Sweet potatoes, oats, and brown rice help stabilize serotonin levels.
-3. **Gentle Movement:** Swap HIIT for yoga or walking.`
+How to Support Yourself:
+1. Prioritize Rest: Go to bed 30 minutes earlier than usual.
+2. Eat Complex Carbs: Sweet potatoes, oats, and brown rice help stabilize serotonin levels.
+3. Gentle Movement: Swap HIIT for yoga or walking.\`
   },
   {
     id: 2,
@@ -40,26 +40,26 @@ During this time, your progesterone levels rise. Progesterone is known as the "c
     readTime: "7 min read",
     image: "bg-purple-200",
     description: "Breathing techniques and mindfulness practices to reduce cycle-related anxiety.",
-    content: `Cycle-related anxiety, often linked to PMDD or severe PMS, is real and valid. It's caused by the rapid drop in hormones before menstruation.
+    content: \`Cycle-related anxiety, often linked to PMDD or severe PMS, is real and valid. It's caused by the rapid drop in hormones before menstruation.
 
-**Techniques to Try:**
+Techniques to Try:
 
-**1. The 4-7-8 Breathing Method**
+1. The 4-7-8 Breathing Method
 - Inhale quietly through the nose for 4 seconds.
 - Hold the breath for 7 seconds.
 - Exhale forcefully through the mouth for 8 seconds.
 - Repeat 4 times.
 
-**2. Magnesium Glycinate**
+2. Magnesium Glycinate
 Consider supplementing with magnesium (consult your doctor first). It's known as "nature's relaxant" and can help with both anxiety and cramps.
 
-**3. Sensory Grounding**
+3. Sensory Grounding
 When you feel overwhelmed, find:
 - 5 things you can see
 - 4 things you can feel
 - 3 things you can hear
 - 2 things you can smell
-- 1 thing you can taste`
+- 1 thing you can taste\`
   },
   {
     id: 3,
@@ -68,17 +68,17 @@ When you feel overwhelmed, find:
     readTime: "4 min read",
     image: "bg-green-200",
     description: "How to use seeds to balance your hormones throughout your cycle naturally.",
-    content: `Seed cycling involves eating specific seeds during the two main phases of your menstrual cycle to help promote the healthy balance of estrogen and progesterone levels.
+    content: \`Seed cycling involves eating specific seeds during the two main phases of your menstrual cycle to help promote the healthy balance of estrogen and progesterone levels.
 
-**Phase 1: Follicular Phase (Day 1 to Ovulation)**
-*Goal: Support Estrogen Production*
-- **Seeds:** 1 tbsp Flax seeds + 1 tbsp Pumpkin seeds daily.
-- **Why:** Flax seeds contain lignans which bind to excess estrogen. Pumpkin seeds are high in zinc, which supports progesterone production for the next phase.
+Phase 1: Follicular Phase (Day 1 to Ovulation)
+Goal: Support Estrogen Production
+- Seeds: 1 tbsp Flax seeds + 1 tbsp Pumpkin seeds daily.
+- Why: Flax seeds contain lignans which bind to excess estrogen. Pumpkin seeds are high in zinc, which supports progesterone production for the next phase.
 
-**Phase 2: Luteal Phase (Ovulation to Period)**
-*Goal: Support Progesterone Production*
-- **Seeds:** 1 tbsp Sesame seeds + 1 tbsp Sunflower seeds daily.
-- **Why:** Sesame seeds block excess estrogen. Sunflower seeds are high in selenium and Vitamin E, which support progesterone levels.`
+Phase 2: Luteal Phase (Ovulation to Period)
+Goal: Support Progesterone Production
+- Seeds: 1 tbsp Sesame seeds + 1 tbsp Sunflower seeds daily.
+- Why: Sesame seeds block excess estrogen. Sunflower seeds are high in selenium and Vitamin E, which support progesterone levels.\`
   },
   {
     id: 4,
@@ -87,15 +87,15 @@ When you feel overwhelmed, find:
     readTime: "6 min read",
     image: "bg-blue-200",
     description: "Essential steps to protect your digital footprint and stay safe online.",
-    content: `In an age where data is the new oil, protecting your digital privacy is crucial, especially for health data.
+    content: \`In an age where data is the new oil, protecting your digital privacy is crucial, especially for health data.
 
-**Key Steps for Protection:**
+Key Steps for Protection:
 
-1. **Use Privacy-First Browsers:** Switch to browsers like Brave or Firefox that block trackers by default.
-2. **Review App Permissions:** Regularly check what apps have access to your location, camera, and microphone.
-3. **Two-Factor Authentication (2FA):** Enable 2FA on all sensitive accounts.
-4. **Metadata Awareness:** Remember that photos you share often contain location data (EXIF). Scrub this data before posting publicly if you want to remain anonymous.
-5. **Emerald's Promise:** We store your sensitive health data locally on your device whenever possible, giving you full control.`
+1. Use Privacy-First Browsers: Switch to browsers like Brave or Firefox that block trackers by default.
+2. Review App Permissions: Regularly check what apps have access to your location, camera, and microphone.
+3. Two-Factor Authentication (2FA): Enable 2FA on all sensitive accounts.
+4. Metadata Awareness: Remember that photos you share often contain location data (EXIF). Scrub this data before posting publicly if you want to remain anonymous.
+5. Emerald's Promise: We store your sensitive health data locally on your device whenever possible, giving you full control.\`
   },
   {
     id: 5,
@@ -104,15 +104,15 @@ When you feel overwhelmed, find:
     readTime: "8 min read",
     image: "bg-pink-300",
     description: "Early warning signs of Polycystic Ovary Syndrome and when to see a doctor.",
-    content: `Polycystic Ovary Syndrome (PCOS) affects 1 in 10 women of childbearing age. Early detection can prevent long-term complications.
+    content: \`Polycystic Ovary Syndrome (PCOS) affects 1 in 10 women of childbearing age. Early detection can prevent long-term complications.
 
-**Common Symptoms:**
-- **Irregular Periods:** Fewer than 9 periods a year or cycles longer than 35 days.
-- **Excess Androgen:** High levels of "male" hormones resulting in physical signs like excess facial or body hair (hirsutism) or severe acne.
-- **Polycystic Ovaries:** Your ovaries might be enlarged and contain follicles that surround the eggs.
+Common Symptoms:
+- Irregular Periods: Fewer than 9 periods a year or cycles longer than 35 days.
+- Excess Androgen: High levels of "male" hormones resulting in physical signs like excess facial or body hair (hirsutism) or severe acne.
+- Polycystic Ovaries: Your ovaries might be enlarged and contain follicles that surround the eggs.
 
-**What to Do:**
-If you have at least two of these symptoms, consult a healthcare provider. Lifestyle changes, including a low-glycemic diet and regular exercise, are often the first line of treatment.`
+What to Do:
+If you have at least two of these symptoms, consult a healthcare provider. Lifestyle changes, including a low-glycemic diet and regular exercise, are often the first line of treatment.\`
   },
   {
     id: 6,
@@ -121,31 +121,31 @@ If you have at least two of these symptoms, consult a healthcare provider. Lifes
     readTime: "10 min read",
     image: "bg-rose-200",
     description: "A complete guide to understanding your menstrual cycle phases and how they affect your brain and body.",
-    content: `Your menstrual cycle is more than just your period. It's a continuous 28-ish day rhythm with four distinct seasons, each bringing different strengths and energy levels.
+    content: \`Your menstrual cycle is more than just your period. It's a continuous 28-ish day rhythm with four distinct seasons, each bringing different strengths and energy levels.
 
-**1. Menstrual Phase (Winter)**
-*Days 1-5*
-- **What's happening:** Hormones are at their lowest. Your uterine lining is shedding.
-- **How you feel:** Tired, inward-focused, reflective.
-- **Superpower:** Intuition and evaluation. It's a great time to journal and reassess your goals.
+1. Menstrual Phase (Winter)
+Days 1-5
+- What's happening: Hormones are at their lowest. Your uterine lining is shedding.
+- How you feel: Tired, inward-focused, reflective.
+- Superpower: Intuition and evaluation. It's a great time to journal and reassess your goals.
 
-**2. Follicular Phase (Spring)**
-*Days 6-14*
-- **What's happening:** Estrogen starts to rise. An egg is preparing to be released.
-- **How you feel:** Energetic, creative, social.
-- **Superpower:** Brainstorming and beginning new projects. Your brain is primed for learning and complex problem-solving.
+2. Follicular Phase (Spring)
+Days 6-14
+- What's happening: Estrogen starts to rise. An egg is preparing to be released.
+- How you feel: Energetic, creative, social.
+- Superpower: Brainstorming and beginning new projects. Your brain is primed for learning and complex problem-solving.
 
-**3. Ovulatory Phase (Summer)**
-*Days 15-17*
-- **What's happening:** Estrogen peaks; testosterone surges slightly. The egg is released.
-- **How you feel:** Confident, magnetic, communicative.
-- **Superpower:** Communication and connection. Schedule important meetings or dates now.
+3. Ovulatory Phase (Summer)
+Days 15-17
+- What's happening: Estrogen peaks; testosterone surges slightly. The egg is released.
+- How you feel: Confident, magnetic, communicative.
+- Superpower: Communication and connection. Schedule important meetings or dates now.
 
-**4. Luteal Phase (Autumn)**
-*Days 18-28*
-- **What's happening:** Progesterone rises. The body prepares for a potential pregnancy.
-- **How you feel:** Calmer, detail-oriented, potentially moody if hormones are unbalanced.
-- **Superpower:** Focus and finishing tasks. It's the "get things done" phase.`
+4. Luteal Phase (Autumn)
+Days 18-28
+- What's happening: Progesterone rises. The body prepares for a potential pregnancy.
+- How you feel: Calmer, detail-oriented, potentially moody if hormones are unbalanced.
+- Superpower: Focus and finishing tasks. It's the "get things done" phase.\`
   },
   {
     id: 7,
@@ -154,25 +154,25 @@ If you have at least two of these symptoms, consult a healthcare provider. Lifes
     readTime: "8 min read",
     image: "bg-indigo-200",
     description: "Why your mood fluctuates throughout the month and scientific ways to stabilize it.",
-    content: `Ever feel like a completely different person depending on the week? That's not "just in your head"—it's in your hormones.
+    content: \`Ever feel like a completely different person depending on the week? That's not "just in your head"—it's in your hormones.
 
-**The Estrogen-Serotonin Connection**
+The Estrogen-Serotonin Connection
 In the first half of your cycle (Follicular/Ovulatory), rising estrogen boosts serotonin (the happiness chemical) and dopamine (the reward chemical). This is why you often feel optimistic and motivated.
 
-**The Progesterone Shift**
+The Progesterone Shift
 In the second half (Luteal), estrogen drops and progesterone rises. Progesterone stimulates GABA receptors, which have a sedating, calming effect. While this can be relaxing, a sharp drop in progesterone before your period can lead to anxiety and irritability.
 
-**Scientific Ways to Stabilize Mood:**
+Scientific Ways to Stabilize Mood:
 
-1. **Cycle-Sync Your Social Life:**
-   - *High Estrogen:* Go out, network, socialize.
-   - *High Progesterone:* Keep plans low-key, prioritize close friends or solo time.
+1. Cycle-Sync Your Social Life:
+   - High Estrogen: Go out, network, socialize.
+   - High Progesterone: Keep plans low-key, prioritize close friends or solo time.
 
-2. **Blood Sugar Balance:**
+2. Blood Sugar Balance:
    - Mood swings are often exaggerated by blood sugar crashes. Eat protein and healthy fats with every meal, especially in your Luteal phase.
 
-3. **Sunlight & Vitamin D:**
-   - Aim for 10-15 minutes of morning sunlight to regulate your circadian rhythm, which helps balance serotonin levels naturally.`
+3. Sunlight & Vitamin D:
+   - Aim for 10-15 minutes of morning sunlight to regulate your circadian rhythm, which helps balance serotonin levels naturally.\`
   },
 ];
 
