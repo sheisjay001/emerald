@@ -1,26 +1,71 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Blue Theme - Light Mode */
+  --background: #f0f9ff; /* Sky 50 */
+  --foreground: #0c4a6e; /* Sky 900 */
+  
+  /* Primary Brand Color */
+  --primary: #0284c7; /* Sky 600 */
+  --primary-foreground: #ffffff;
+  
+  /* Secondary/Accent */
+  --secondary: #e0f2fe; /* Sky 100 */
+  --secondary-foreground: #075985; /* Sky 800 */
+  
+  /* Cards/Surfaces */
+  --card: #ffffff;
+  --card-foreground: #0c4a6e;
+  
+  /* Muted */
+  --muted: #f1f5f9; /* Slate 100 */
+  --muted-foreground: #64748b; /* Slate 500 */
+  
+  /* Border */
+  --border: #bae6fd; /* Sky 200 */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Blue Theme - Dark Mode */
+    --background: #0f172a; /* Slate 900 */
+    --foreground: #f0f9ff; /* Sky 50 */
+    
+    --primary: #38bdf8; /* Sky 400 */
+    --primary-foreground: #0f172a;
+    
+    --secondary: #1e293b; /* Slate 800 */
+    --secondary-foreground: #e0f2fe; /* Sky 100 */
+    
+    --card: #1e293b; /* Slate 800 */
+    --card-foreground: #f0f9ff;
+    
+    --muted: #334155; /* Slate 700 */
+    --muted-foreground: #94a3b8; /* Slate 400 */
+    
+    --border: #1e293b;
+  }
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-border: var(--border);
+  
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
