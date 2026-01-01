@@ -27,50 +27,25 @@ const SAFETY_RESOURCES = [
   { name: "Crisis Text Line", phone: "Text HOME to 741741", link: "https://www.crisistextline.org/" },
 ];
 
-// Mock Data
-const INITIAL_POSTS = [
-  {
-    id: "1",
-    author: "Sarah J.",
-    avatar: "bg-blue-200 text-blue-700",
-    time: "2 hours ago",
-    category: "Mental Wellness",
-    title: "Dealing with anxiety during my cycle",
-    content: "Has anyone else noticed their anxiety spiking right before their period? I've been trying meditation but looking for other tips that might help.",
-    likes: 24,
-    comments: 8,
-    isLiked: false,
-  },
-  {
-    id: "2",
-    author: "Emily R.",
-    avatar: "bg-indigo-200 text-indigo-700",
-    time: "4 hours ago",
-    category: "Cycle Health",
-    title: "Best natural remedies for cramps?",
-    content: "I'm trying to reduce my intake of painkillers. What natural teas or remedies have worked for you ladies?",
-    likes: 45,
-    comments: 12,
-    isLiked: true,
-  },
-  {
-    id: "3",
-    author: "Anonymous",
-    avatar: "bg-slate-200 text-slate-700",
-    time: "6 hours ago",
-    category: "Safety",
-    title: "Stay safe while jogging at night",
-    content: "Just wanted to share a great app I found for safety tracking when I go for my evening runs. It's called...",
-    likes: 112,
-    comments: 5,
-    isLiked: false,
-  },
-];
+interface Post {
+  id: string;
+  author: string;
+  avatar: string;
+  time: string;
+  category: string;
+  title: string;
+  content: string;
+  likes: number;
+  comments: number;
+  isLiked: boolean;
+}
+
+const INITIAL_POSTS: Post[] = [];
 
 const CATEGORIES = ["All", "Mental Wellness", "Cycle Health", "Safety", "General", "Advice"];
 
 export default function CommunityPage() {
-  const [posts, setPosts] = useState(INITIAL_POSTS);
+  const [posts, setPosts] = useState<Post[]>(INITIAL_POSTS);
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [isCreatingPost, setIsCreatingPost] = useState(false);
   const [newPostContent, setNewPostContent] = useState("");
@@ -258,64 +233,78 @@ useEffect(() => {
 
           {/* Posts List */}
           <div className="space-y-4">
-            {filteredPosts.map((post) => (
-              <motion.div
-                key={post.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="bg-card rounded-xl border border-border p-6 shadow-sm hover:shadow-md transition-shadow"
-              >
-                <div className="flex items-start justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className={`h-10 w-10 rounded-full flex items-center justify-center font-semibold ${post.avatar}`}>
-                      {post.author.charAt(0)}
+            {filteredPosts.length > 0 ? (
+              filteredPosts.map((post) => (
+                <motion.div
+                  key={post.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-card rounded-xl border border-border p-6 shadow-sm hover:shadow-md transition-shadow"
+                >
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className={`h-10 w-10 rounded-full flex items-center justify-center font-semibold ${post.avatar}`}>
+                        {post.author.charAt(0)}
+                      </div>
+                      <div>
+                        <p className="font-medium text-foreground">{post.author}</p>
+                        <p className="text-xs text-muted-foreground">{post.time} • {post.category}</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-medium text-foreground">{post.author}</p>
-                      <p className="text-xs text-muted-foreground">{post.time} • {post.category}</p>
-                    </div>
+                    <button className="text-muted-foreground hover:text-foreground">
+                      <MoreHorizontal className="h-5 w-5" />
+                    </button>
                   </div>
-                  <button className="text-muted-foreground hover:text-foreground">
-                    <MoreHorizontal className="h-5 w-5" />
-                  </button>
-                </div>
-                
-                <div className="mt-4">
-                  <h3 className="text-lg font-semibold text-foreground mb-2">{post.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{post.content}</p>
-                </div>
+                  
+                  <div className="mt-4">
+                    <h3 className="text-lg font-semibold text-foreground mb-2">{post.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed">{post.content}</p>
+                  </div>
 
-                <div className="mt-6 flex items-center gap-6 pt-4 border-t border-border">
-                  <button 
-                    onClick={() => handleLike(post.id)}
-                    className={`flex items-center gap-2 text-sm font-medium transition-colors ${
-                      post.isLiked ? "text-pink-500" : "text-muted-foreground hover:text-pink-500"
-                    }`}
-                  >
-                    <Heart className={`h-5 w-5 ${post.isLiked ? "fill-current" : ""}`} />
-                    {post.likes}
-                  </button>
-                  <button className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
-                    <MessageSquare className="h-5 w-5" />
-                    {post.comments}
-                  </button>
-                  <button className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-                    <Share2 className="h-5 w-5" />
-                    Share
-                  </button>
-                  <button 
-                    onClick={() => handleReport(post.id)}
-                    className={`flex items-center gap-2 text-sm font-medium transition-colors ml-auto ${
-                      reportedPosts.includes(post.id) ? "text-red-500" : "text-muted-foreground hover:text-red-500"
-                    }`}
-                    disabled={reportedPosts.includes(post.id)}
-                  >
-                    <Flag className="h-5 w-5" />
-                    {reportedPosts.includes(post.id) ? "Reported" : "Report"}
-                  </button>
-                </div>
-              </motion.div>
-            ))}
+                  <div className="mt-6 flex items-center gap-6 pt-4 border-t border-border">
+                    <button 
+                      onClick={() => handleLike(post.id)}
+                      className={`flex items-center gap-2 text-sm font-medium transition-colors ${
+                        post.isLiked ? "text-pink-500" : "text-muted-foreground hover:text-pink-500"
+                      }`}
+                    >
+                      <Heart className={`h-5 w-5 ${post.isLiked ? "fill-current" : ""}`} />
+                      {post.likes}
+                    </button>
+                    <button className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+                      <MessageSquare className="h-5 w-5" />
+                      {post.comments}
+                    </button>
+                    <button className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                      <Share2 className="h-5 w-5" />
+                      Share
+                    </button>
+                    <button 
+                      onClick={() => handleReport(post.id)}
+                      className={`flex items-center gap-2 text-sm font-medium transition-colors ml-auto ${
+                        reportedPosts.includes(post.id) ? "text-red-500" : "text-muted-foreground hover:text-red-500"
+                      }`}
+                      disabled={reportedPosts.includes(post.id)}
+                    >
+                      <Flag className="h-5 w-5" />
+                      {reportedPosts.includes(post.id) ? "Reported" : "Report"}
+                    </button>
+                  </div>
+                </motion.div>
+              ))
+            ) : (
+              <div className="text-center py-12 bg-card rounded-xl border border-border">
+                <MessageSquare className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-foreground">No discussions yet</h3>
+                <p className="text-muted-foreground mt-1">Be the first to start a conversation!</p>
+                <button 
+                  onClick={() => setIsCreatingPost(true)}
+                  className="mt-4 inline-flex items-center text-primary hover:underline"
+                >
+                  Start a discussion
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
