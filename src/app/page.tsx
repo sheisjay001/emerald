@@ -368,6 +368,11 @@ export default function Home() {
               <span className="text-xl font-bold text-foreground">Emerald</span>
             </div>
             
+            <div className="flex gap-6 text-sm text-muted-foreground">
+              <Link href="/privacy" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Privacy Policy</Link>
+              <Link href="/terms" className="hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors">Terms of Service</Link>
+            </div>
+
             <p className="text-sm text-muted-foreground text-center md:text-right">
               &copy; 2025 Emerald. Made with <Heart className="inline h-3 w-3 text-red-500 mx-1" /> for women — by a woman in cybersecurity.
             </p>

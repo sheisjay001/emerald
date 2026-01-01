@@ -115,15 +115,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
            <span className="text-xl font-bold text-foreground">Emerald</span>
         </Link>
         <div className="flex items-center gap-3">
-          {/* Quick Log Out Icon for Visibility */}
-          <button 
-            onClick={logout}
-            className="w-10 h-10 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 flex items-center justify-center hover:bg-red-200 transition-colors"
-            title="Sign Out"
-          >
-            <LogOut size={20} />
-          </button>
-          
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-2 text-foreground rounded-md hover:bg-muted">
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
