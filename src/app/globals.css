@@ -1,49 +1,49 @@
 @import "tailwindcss";
 
 :root {
-  /* Blue Theme - Light Mode */
-  --background: #f0f9ff; /* Sky 50 */
-  --foreground: #0c4a6e; /* Sky 900 */
+  /* Emerald Theme - Light Mode */
+  --background: #ffffff; /* White for cleaner look, or very light emerald #ecfdf5 */
+  --foreground: #064e3b; /* Emerald 900 */
   
   /* Primary Brand Color */
-  --primary: #0284c7; /* Sky 600 */
+  --primary: #059669; /* Emerald 600 */
   --primary-foreground: #ffffff;
   
   /* Secondary/Accent */
-  --secondary: #e0f2fe; /* Sky 100 */
-  --secondary-foreground: #075985; /* Sky 800 */
+  --secondary: #d1fae5; /* Emerald 100 */
+  --secondary-foreground: #065f46; /* Emerald 800 */
   
   /* Cards/Surfaces */
   --card: #ffffff;
-  --card-foreground: #0c4a6e;
+  --card-foreground: #064e3b;
   
   /* Muted */
   --muted: #f1f5f9; /* Slate 100 */
   --muted-foreground: #64748b; /* Slate 500 */
   
   /* Border */
-  --border: #bae6fd; /* Sky 200 */
+  --border: #e2e8f0; /* Slate 200 */
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    /* Blue Theme - Dark Mode */
-    --background: #0f172a; /* Slate 900 */
-    --foreground: #f0f9ff; /* Sky 50 */
+    /* Emerald Theme - Dark Mode */
+    --background: #022c22; /* Emerald 950 */
+    --foreground: #ecfdf5; /* Emerald 50 */
     
-    --primary: #38bdf8; /* Sky 400 */
-    --primary-foreground: #0f172a;
+    --primary: #34d399; /* Emerald 400 */
+    --primary-foreground: #022c22;
     
-    --secondary: #1e293b; /* Slate 800 */
-    --secondary-foreground: #e0f2fe; /* Sky 100 */
+    --secondary: #064e3b; /* Emerald 900 */
+    --secondary-foreground: #d1fae5; /* Emerald 100 */
     
-    --card: #1e293b; /* Slate 800 */
-    --card-foreground: #f0f9ff;
+    --card: #065f46; /* Emerald 800 - slightly lighter than bg */
+    --card-foreground: #ecfdf5;
     
-    --muted: #334155; /* Slate 700 */
+    --muted: #1e293b; /* Slate 800 */
     --muted-foreground: #94a3b8; /* Slate 400 */
     
-    --border: #1e293b;
+    --border: #064e3b; /* Emerald 900 */
   }
 }
 

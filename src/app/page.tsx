@@ -1,185 +1,375 @@
+"use client";
+
 import Link from "next/link";
+import { motion } from "framer-motion";
+import { 
+  Shield, 
+  Heart, 
+  Activity, 
+  Lock, 
+  Zap, 
+  Users, 
+  ArrowRight, 
+  Menu, 
+  X,
+  Smartphone,
+  Brain,
+  Stethoscope
+} from "lucide-react";
+import { useState } from "react";
 
 export default function Home() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   return (
-    <div className="min-h-screen flex flex-col font-sans">
+    <div className="min-h-screen flex flex-col font-sans bg-background text-foreground overflow-x-hidden">
       {/* Navigation */}
-      <nav className="border-b border-border bg-card/50 backdrop-blur-md sticky top-0 z-50">
+      <nav className="fixed w-full z-50 top-0 border-b border-white/10 bg-background/80 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
-            <div className="flex-shrink-0 flex items-center">
-              <span className="text-2xl font-bold text-primary">Emerald</span>
+          <div className="flex justify-between h-20 items-center">
+            {/* Logo */}
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="flex items-center gap-2"
+            >
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-emerald-500/20">
+                E
+              </div>
+              <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-300">
+                Emerald
+              </span>
+            </motion.div>
+
+            {/* Desktop Nav */}
+            <div className="hidden md:flex items-center space-x-8">
+              {["Features", "Goals", "Contact"].map((item, i) => (
+                <motion.div
+                  key={item}
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                >
+                  <Link 
+                    href={`#${item.toLowerCase()}`}
+                    className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative group"
+                  >
+                    {item}
+                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
+                  </Link>
+                </motion.div>
+              ))}
             </div>
-            <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
-              <Link href="#" className="border-primary text-foreground inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium">
-                Home
-              </Link>
-              <Link href="#features" className="border-transparent text-muted-foreground hover:border-border hover:text-foreground inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors">
-                Features
-              </Link>
-              <Link href="#goals" className="border-transparent text-muted-foreground hover:border-border hover:text-foreground inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors">
-                Goals
-              </Link>
-              <Link href="#contact" className="border-transparent text-muted-foreground hover:border-border hover:text-foreground inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium transition-colors">
-                Contact
-              </Link>
-            </div>
-            <div className="flex items-center gap-4">
-              <Link
-                href="/login"
-                className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
-              >
+
+            {/* Auth Buttons */}
+            <div className="hidden md:flex items-center gap-4">
+              <Link href="/login" className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
                 Sign In
               </Link>
               <Link
                 href="/signup"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-4 py-2 rounded-md text-sm font-medium transition-colors shadow-sm"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-5 py-2.5 rounded-full text-sm font-medium transition-all shadow-lg shadow-emerald-500/20 hover:shadow-emerald-500/30 hover:-translate-y-0.5"
               >
                 Get Started
               </Link>
             </div>
+
+            {/* Mobile Menu Button */}
+            <div className="md:hidden">
+              <button 
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="text-muted-foreground hover:text-foreground"
+              >
+                {isMobileMenuOpen ? <X /> : <Menu />}
+              </button>
+            </div>
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        {isMobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            className="md:hidden bg-background border-b border-border"
+          >
+            <div className="px-4 pt-2 pb-6 space-y-4">
+              {["Features", "Goals", "Contact"].map((item) => (
+                <Link
+                  key={item}
+                  href={`#${item.toLowerCase()}`}
+                  className="block text-base font-medium text-muted-foreground hover:text-primary"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item}
+                </Link>
+              ))}
+              <div className="pt-4 flex flex-col gap-3">
+                <Link href="/login" className="w-full text-center py-2 text-muted-foreground">Sign In</Link>
+                <Link href="/signup" className="w-full bg-primary text-primary-foreground py-2 rounded-lg text-center font-medium">Get Started</Link>
+              </div>
+            </div>
+          </motion.div>
+        )}
       </nav>
 
-      <main className="flex-grow">
+      <main className="flex-grow pt-20">
         {/* Hero Section */}
-        <div className="relative overflow-hidden bg-background pt-16 pb-32 space-y-24">
-          <div className="relative">
-            <div className="lg:mx-auto lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-2 lg:grid-flow-col-dense lg:gap-24">
-              <div className="px-4 max-w-xl mx-auto sm:px-6 lg:py-16 lg:max-w-none lg:mx-0 lg:px-0">
-                <div>
-                  <div className="mt-6">
-                    <h1 className="text-4xl font-extrabold tracking-tight text-foreground sm:text-5xl">
-                      Next-Gen Women’s Health & Wellness App
-                    </h1>
-                    <p className="mt-4 text-lg text-muted-foreground">
-                      A privacy-first, AI-powered web application designed to support women by offering personalized menstrual tracking, mental health integration, real-time medical insights, and protection from online harassment.
-                    </p>
-                    <div className="mt-6">
-                      <Link
-                        href="#"
-                        className="inline-flex px-8 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-primary-foreground bg-primary hover:bg-primary/90 transition-colors"
-                      >
-                        Join the Waitlist
-                      </Link>
-                      <Link
-                        href="#features"
-                        className="ml-4 inline-flex px-8 py-3 border border-border text-base font-medium rounded-md text-foreground bg-card hover:bg-muted transition-colors"
-                      >
-                        Learn More
-                      </Link>
+        <section className="relative overflow-hidden py-20 lg:py-32">
+          {/* Background Decor */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl -z-10 pointer-events-none">
+            <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-3xl mix-blend-multiply dark:mix-blend-screen animate-pulse-slow" />
+            <div className="absolute -bottom-20 -left-20 w-[400px] h-[400px] bg-teal-500/10 rounded-full blur-3xl mix-blend-multiply dark:mix-blend-screen animate-pulse-slow delay-1000" />
+          </div>
+
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="lg:grid lg:grid-cols-2 lg:gap-16 items-center">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="max-w-2xl"
+              >
+                <div className="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium text-emerald-700 bg-emerald-50 dark:bg-emerald-900/30 dark:text-emerald-300 ring-1 ring-inset ring-emerald-600/20 mb-6">
+                  <span className="flex h-2 w-2 rounded-full bg-emerald-600 mr-2 animate-pulse"></span>
+                  Now available for early access
+                </div>
+                <h1 className="text-5xl lg:text-7xl font-bold tracking-tight text-foreground mb-6 leading-tight">
+                  Health & Safety, <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 to-teal-500">
+                    Reimagined.
+                  </span>
+                </h1>
+                <p className="text-xl text-muted-foreground mb-8 leading-relaxed">
+                  A privacy-first, AI-powered sanctuary for women. Personalized cycle tracking, mental wellness, and community safety — all in one elegant, secure space.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link
+                    href="/signup"
+                    className="inline-flex justify-center items-center px-8 py-4 text-base font-semibold rounded-full text-white bg-primary hover:bg-primary/90 transition-all shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:-translate-y-1"
+                  >
+                    Start Your Journey
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
+                  <Link
+                    href="#features"
+                    className="inline-flex justify-center items-center px-8 py-4 text-base font-semibold rounded-full text-foreground bg-secondary/50 hover:bg-secondary transition-colors border border-transparent hover:border-emerald-200"
+                  >
+                    Explore Features
+                  </Link>
+                </div>
+              </motion.div>
+
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="mt-16 lg:mt-0 relative"
+              >
+                <div className="relative rounded-2xl bg-gradient-to-br from-emerald-100 to-teal-50 dark:from-emerald-900/20 dark:to-teal-900/20 p-8 shadow-2xl border border-white/20 backdrop-blur-sm">
+                  {/* Abstract UI Representation */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="col-span-2 bg-card p-4 rounded-xl shadow-sm border border-border/50 flex items-center gap-4">
+                      <div className="h-12 w-12 rounded-full bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center text-emerald-600">
+                        <Activity className="h-6 w-6" />
+                      </div>
+                      <div>
+                        <div className="h-2 w-24 bg-muted rounded mb-2" />
+                        <div className="h-2 w-16 bg-muted rounded" />
+                      </div>
+                    </div>
+                    <div className="bg-card p-4 rounded-xl shadow-sm border border-border/50 aspect-square flex flex-col justify-center items-center gap-2">
+                      <div className="h-10 w-10 rounded-full bg-teal-100 dark:bg-teal-900/50 flex items-center justify-center text-teal-600">
+                        <Brain className="h-5 w-5" />
+                      </div>
+                      <div className="h-2 w-16 bg-muted rounded mt-2" />
+                    </div>
+                    <div className="bg-card p-4 rounded-xl shadow-sm border border-border/50 aspect-square flex flex-col justify-center items-center gap-2">
+                      <div className="h-10 w-10 rounded-full bg-pink-100 dark:bg-pink-900/50 flex items-center justify-center text-pink-600">
+                        <Heart className="h-5 w-5" />
+                      </div>
+                      <div className="h-2 w-16 bg-muted rounded mt-2" />
                     </div>
                   </div>
+                  
+                  {/* Floating Shield Badge */}
+                  <motion.div 
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute -top-6 -right-6 bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-xl border border-emerald-100 dark:border-emerald-900 flex items-center gap-3"
+                  >
+                    <div className="bg-emerald-500 rounded-lg p-2 text-white">
+                      <Shield className="h-6 w-6" />
+                    </div>
+                    <div>
+                      <p className="text-xs text-muted-foreground font-medium uppercase tracking-wider">Privacy First</p>
+                      <p className="text-sm font-bold text-foreground">End-to-End Encrypted</p>
+                    </div>
+                  </motion.div>
                 </div>
-              </div>
-              <div className="mt-12 sm:mt-16 lg:mt-0">
-                <div className="pl-4 -mr-48 sm:pl-6 md:-mr-16 lg:px-0 lg:m-0 lg:relative lg:h-full">
-                  <div className="w-full rounded-xl shadow-xl ring-1 ring-black ring-opacity-5 lg:absolute lg:left-0 lg:h-full lg:w-auto lg:max-w-none bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center text-white text-9xl font-bold opacity-80">
-                    {/* Placeholder for Hero Image */}
-                    <span className="opacity-20 select-none">UI</span>
-                  </div>
-                </div>
-              </div>
+              </motion.div>
             </div>
           </div>
-        </div>
+        </section>
 
-        {/* Project Goals */}
-        <div id="goals" className="bg-secondary py-16 sm:py-24">
+        {/* Goals Section */}
+        <section id="goals" className="py-24 bg-secondary/30 relative">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <h2 className="text-base font-semibold text-primary tracking-wide uppercase">Project Goal</h2>
-              <p className="mt-1 text-4xl font-extrabold text-foreground sm:text-5xl sm:tracking-tight lg:text-6xl">
-                Empowering Women
+            <div className="text-center max-w-3xl mx-auto mb-16">
+              <h2 className="text-emerald-600 dark:text-emerald-400 font-semibold tracking-wide uppercase text-sm">Our Mission</h2>
+              <p className="mt-2 text-4xl font-bold text-foreground sm:text-5xl tracking-tight">
+                Empowering Women Through Technology
               </p>
-              <p className="max-w-xl mt-5 mx-auto text-xl text-muted-foreground">
-                To build a women-focused digital space that goes beyond cycle tracking.
+              <p className="mt-4 text-xl text-muted-foreground">
+                Building a digital ecosystem that prioritizes your health, privacy, and safety above all else.
               </p>
             </div>
-            <div className="mt-12 grid gap-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-               {[
-                 { title: "Intelligent Insights", desc: "Menstrual health insights powered by AI." },
-                 { title: "Mental Wellness", desc: "Mental and emotional wellness support integration." },
-                 { title: "Privacy First", desc: "Complete data privacy and control for users." },
-                 { title: "Community Safety", desc: "Community-driven safety from online threats." },
-               ].map((goal, index) => (
-                 <div key={index} className="bg-card rounded-lg shadow-lg p-6 border border-border">
-                   <h3 className="text-lg font-medium text-foreground">{goal.title}</h3>
-                   <p className="mt-2 text-muted-foreground">{goal.desc}</p>
-                 </div>
-               ))}
-            </div>
-          </div>
-        </div>
 
-        {/* Key Features */}
-        <div id="features" className="py-16 sm:py-24 bg-background">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-3xl mx-auto text-center">
-              <h2 className="text-3xl font-extrabold text-foreground">Key Features</h2>
-              <p className="mt-4 text-lg text-muted-foreground">
-                Everything you need to manage your health and safety in one place.
-              </p>
-            </div>
-            <div className="mt-12 space-y-10 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-3 lg:gap-x-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
-                {
-                  title: "Smart Menstrual & Health Tracker",
-                  desc: "Tracks periods, ovulation, symptoms, energy levels. Learns from user data to adjust predictions and sends custom insights."
+                { 
+                  title: "Intelligent Insights", 
+                  desc: "Advanced AI that learns your unique patterns for precise health predictions.",
+                  icon: <Brain className="h-6 w-6" />
                 },
-                {
-                  title: "AI-Powered Health Alert System",
-                  desc: "Detects patterns suggesting PCOS, Endometriosis, irregular cycles, or anemia risks and prompts to seek medical support."
+                { 
+                  title: "Mental Wellness", 
+                  desc: "Holistic support integrating emotional well-being with physical health.",
+                  icon: <Heart className="h-6 w-6" />
                 },
-                {
-                  title: "Mood & Mental Health Support",
-                  desc: "Tracks mood across the cycle. Offers mindfulness exercises, self-care checklists, and nutrition tips."
+                { 
+                  title: "Uncompromised Privacy", 
+                  desc: "Your data belongs to you. Local-first storage with military-grade encryption.",
+                  icon: <Lock className="h-6 w-6" />
                 },
-                {
-                  title: "Encrypted, Privacy-First",
-                  desc: "No third-party sharing. Local-only storage with optional encrypted sync. Full user control over data."
+                { 
+                  title: "Community Safety", 
+                  desc: "A verified, safe space protected from harassment and toxicity.",
+                  icon: <Shield className="h-6 w-6" />
                 },
-                {
-                  title: "Education Layer",
-                  desc: "Explains why symptoms occur during phases. Gives context-driven learning based on your current cycle phase."
-                },
-                {
-                  title: "Community & Harassment Protection",
-                  desc: "Women-only safe network with AI moderation to report and auto-flag abusive behavior. (Future Feature)"
-                }
-              ].map((feature, index) => (
-                <div key={index} className="relative bg-card p-6 rounded-2xl shadow-sm border border-border hover:shadow-md transition-shadow">
-                  <dt>
-                    <p className="text-lg leading-6 font-medium text-foreground">{feature.title}</p>
-                  </dt>
-                  <dd className="mt-2 text-base text-muted-foreground">
-                    {feature.desc}
-                  </dd>
-                </div>
+              ].map((goal, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="bg-card p-8 rounded-2xl shadow-sm border border-border/50 hover:shadow-lg hover:border-emerald-500/20 transition-all group"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-emerald-50 dark:bg-emerald-900/20 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    {goal.icon}
+                  </div>
+                  <h3 className="text-xl font-bold text-foreground mb-3">{goal.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {goal.desc}
+                  </p>
+                </motion.div>
               ))}
             </div>
           </div>
-        </div>
+        </section>
+
+        {/* Features Grid */}
+        <section id="features" className="py-24 bg-background">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-3xl mx-auto text-center mb-16">
+              <h2 className="text-4xl font-bold text-foreground mb-4">World-Class Features</h2>
+              <p className="text-xl text-muted-foreground">
+                Everything you need to manage your health journey with confidence and clarity.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[
+                {
+                  title: "Smart Cycle Tracker",
+                  desc: "Beyond basic dates. Tracks ovulation, symptoms, and energy levels with predictive AI adjustments.",
+                  icon: <Activity className="h-6 w-6 text-pink-500" />,
+                  bg: "bg-pink-50 dark:bg-pink-900/10"
+                },
+                {
+                  title: "Health Alert System",
+                  desc: "Early detection patterns for PCOS, Endometriosis, and anemia risks to keep you informed.",
+                  icon: <Stethoscope className="h-6 w-6 text-blue-500" />,
+                  bg: "bg-blue-50 dark:bg-blue-900/10"
+                },
+                {
+                  title: "Mood & Mind",
+                  desc: "Correlate mood with cycle phases. Access mindfulness and nutrition tips tailored to you.",
+                  icon: <Zap className="h-6 w-6 text-yellow-500" />,
+                  bg: "bg-yellow-50 dark:bg-yellow-900/10"
+                },
+                {
+                  title: "Privacy Vault",
+                  desc: "No selling data. No third parties. Your health information stays on your device.",
+                  icon: <Lock className="h-6 w-6 text-emerald-500" />,
+                  bg: "bg-emerald-50 dark:bg-emerald-900/10"
+                },
+                {
+                  title: "Education Hub",
+                  desc: "Context-aware learning. Understand 'why' you feel this way during each phase.",
+                  icon: <Smartphone className="h-6 w-6 text-purple-500" />,
+                  bg: "bg-purple-50 dark:bg-purple-900/10"
+                },
+                {
+                  title: "Safe Community",
+                  desc: "AI-moderated spaces ensuring supportive, harassment-free connections.",
+                  icon: <Users className="h-6 w-6 text-indigo-500" />,
+                  bg: "bg-indigo-50 dark:bg-indigo-900/10"
+                }
+              ].map((feature, index) => (
+                <motion.div
+                  key={index}
+                  whileHover={{ y: -5 }}
+                  className="relative bg-card p-8 rounded-3xl border border-border/60 hover:border-emerald-500/30 transition-all shadow-sm hover:shadow-xl"
+                >
+                  <div className={`w-14 h-14 rounded-2xl ${feature.bg} flex items-center justify-center mb-6`}>
+                    {feature.icon}
+                  </div>
+                  <h3 className="text-xl font-bold text-foreground mb-3">{feature.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {feature.desc}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Call to Action */}
+        <section className="py-24 relative overflow-hidden">
+          <div className="absolute inset-0 bg-emerald-600 dark:bg-emerald-900">
+            <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-emerald-900/50 to-transparent"></div>
+          </div>
+          <div className="relative max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+            <h2 className="text-4xl font-bold text-white mb-6">Ready to prioritize yourself?</h2>
+            <p className="text-xl text-emerald-50 mb-10">
+              Join thousands of women who are taking control of their health and safety with Emerald.
+            </p>
+            <Link
+              href="/signup"
+              className="inline-flex px-8 py-4 bg-white text-emerald-600 font-bold rounded-full shadow-lg hover:bg-emerald-50 transition-colors transform hover:scale-105"
+            >
+              Get Started Free
+            </Link>
+          </div>
+        </section>
       </main>
 
       {/* Footer */}
-      <footer className="bg-secondary">
-        <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 md:flex md:items-center md:justify-between lg:px-8">
-          <div className="flex justify-center space-x-6 md:order-2">
-            <Link href="#" className="text-muted-foreground hover:text-foreground">
-              <span className="sr-only">Twitter</span>
-              {/* Icon placeholder */}
-              <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84" /></svg>
-            </Link>
-            <Link href="#" className="text-muted-foreground hover:text-foreground">
-              <span className="sr-only">GitHub</span>
-              <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fillRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clipRule="evenodd" /></svg>
-            </Link>
-          </div>
-          <div className="mt-8 md:mt-0 md:order-1">
-            <p className="text-center text-base text-muted-foreground">
-              &copy; 2025 Emerald. Made with love, for women — by a woman in cybersecurity.
+      <footer className="bg-background border-t border-border py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-emerald-600 flex items-center justify-center text-white font-bold text-sm">
+                E
+              </div>
+              <span className="text-xl font-bold text-foreground">Emerald</span>
+            </div>
+            
+            <p className="text-sm text-muted-foreground text-center md:text-right">
+              &copy; 2025 Emerald. Made with <Heart className="inline h-3 w-3 text-red-500 mx-1" /> for women — by a woman in cybersecurity.
             </p>
           </div>
         </div>
