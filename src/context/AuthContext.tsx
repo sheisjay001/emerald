@@ -24,6 +24,34 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true); // Start loading to check storage
   const router = useRouter();
 
+  // Auto-logout after inactivity
+  useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+    const INACTIVITY_LIMIT = 15 * 60 * 1000; // 15 minutes
+
+    const resetTimer = () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      if (user) {
+        timeoutId = setTimeout(() => {
+          console.log("Auto-logging out due to inactivity");
+          logout();
+        }, INACTIVITY_LIMIT);
+      }
+    };
+
+    const events = ["mousedown", "mousemove", "keydown", "scroll", "touchstart"];
+    
+    if (user) {
+      resetTimer();
+      events.forEach(event => window.addEventListener(event, resetTimer));
+    }
+
+    return () => {
+      if (timeoutId) clearTimeout(timeoutId);
+      events.forEach(event => window.removeEventListener(event, resetTimer));
+    };
+  }, [user]);
+
   useEffect(() => {
     // Check local storage for persisted session
     const storedUser = LocalStorage.getItem("user");

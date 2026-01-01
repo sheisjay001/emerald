@@ -118,7 +118,17 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
            <span className="text-xl font-bold text-foreground">Emerald</span>
         </Link>
         <div className="flex items-center gap-3">
+          {/* Quick Log Out Icon for Visibility */}
+          <button 
+            onClick={logout}
+            className="w-10 h-10 rounded-full bg-red-100 dark:bg-red-900/30 text-red-600 flex items-center justify-center hover:bg-red-200 transition-colors"
+            title="Sign Out"
+          >
+            <LogOut size={20} />
+          </button>
+          
           <PanicButton className="w-10 h-10 p-0 rounded-full flex items-center justify-center" />
+          
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-2 text-foreground rounded-md hover:bg-muted">
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -135,7 +145,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
             className="fixed inset-0 top-[60px] bg-background z-50 flex flex-col md:hidden"
           >
-             <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+             <nav className="flex-1 p-4 space-y-2 overflow-y-auto pb-24">
               {sidebarItems.map((item) => {
                 const Icon = item.icon;
                 const isActive = pathname === item.href;
@@ -162,10 +172,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     logout();
                     setIsMobileMenuOpen(false);
                   }}
-                  className="flex items-center gap-4 px-4 py-4 w-full text-base font-medium text-red-500 hover:bg-red-50 rounded-xl transition-colors"
+                  className="flex items-center justify-center gap-4 px-4 py-4 w-full text-base font-bold text-white bg-red-600 hover:bg-red-700 rounded-xl shadow-lg shadow-red-500/20 transition-all transform active:scale-95"
                 >
                   <LogOut size={24} />
-                  Sign Out
+                  SIGN OUT
                 </button>
               </div>
             </nav>
@@ -174,9 +184,19 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       </AnimatePresence>
 
       {/* Main Content */}
-      <main className="flex-1 md:p-8 pt-20 px-4 pb-8 w-full overflow-x-hidden transition-all duration-300 ease-in-out">
+      <main className="flex-1 md:p-8 pt-20 px-4 pb-24 md:pb-8 w-full overflow-x-hidden transition-all duration-300 ease-in-out relative">
         <div className="max-w-7xl mx-auto animate-in fade-in slide-in-from-bottom-4 duration-500">
           {children}
+        </div>
+        
+        {/* Mobile Quick Log FAB */}
+        <div className="md:hidden fixed bottom-6 right-6 z-40">
+           <Link
+             href="/dashboard/health"
+             className="w-14 h-14 bg-emerald-600 text-white rounded-full flex items-center justify-center shadow-lg shadow-emerald-600/30 hover:bg-emerald-700 transition-transform active:scale-90"
+           >
+             <Activity size={24} />
+           </Link>
         </div>
       </main>
     </div>
