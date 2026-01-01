@@ -3,6 +3,7 @@
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { formatDistanceToNow } from "date-fns";
 import { LocalStorage } from "@/lib/storage";
 import { 
   MessageSquare, 
@@ -16,7 +17,10 @@ import {
   AlertTriangle,
   Send,
   Flag,
-  Phone
+  Phone,
+  X,
+  CheckCircle,
+  AlertCircle
 } from "lucide-react";
 
 const TOXIC_WORDS = ["hate", "stupid", "idiot", "kill", "abuse"];
@@ -27,17 +31,31 @@ const SAFETY_RESOURCES = [
   { name: "Crisis Text Line", phone: "Text HOME to 741741", link: "https://www.crisistextline.org/" },
 ];
 
+interface Comment {
+  id: string;
+  author: string;
+  content: string;
+  timestamp: string;
+}
+
 interface Post {
   id: string;
   author: string;
   avatar: string;
-  time: string;
+  timestamp: string; // ISO string
   category: string;
   title: string;
   content: string;
   likes: number;
   comments: number;
+  commentsList?: Comment[];
   isLiked: boolean;
+}
+
+interface Toast {
+  id: string;
+  message: string;
+  type: "success" | "error" | "info";
 }
 
 const INITIAL_POSTS: Post[] = [];
@@ -52,10 +70,29 @@ export default function CommunityPage() {
   const [newPostTitle, setNewPostTitle] = useState("");
   const [newPostCategory, setNewPostCategory] = useState("General");
   const [reportedPosts, setReportedPosts] = useState<string[]>([]);
-useEffect(() => {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [expandedPostId, setExpandedPostId] = useState<string | null>(null);
+  const [newComment, setNewComment] = useState("");
+  const [toasts, setToasts] = useState<Toast[]>([]);
+
+  const showToast = (message: string, type: "success" | "error" | "info" = "info") => {
+    const id = Date.now().toString();
+    setToasts(prev => [...prev, { id, message, type }]);
+    setTimeout(() => {
+      setToasts(prev => prev.filter(t => t.id !== id));
+    }, 3000);
+  };
+
+  useEffect(() => {
     const storedPosts = LocalStorage.getItem("community_posts");
     if (storedPosts) {
-      setPosts(storedPosts);
+      // Migration check: ensure timestamp exists if migrating from old data
+      const migratedPosts = storedPosts.map((p: any) => ({
+        ...p,
+        timestamp: p.timestamp || new Date().toISOString(), // Fallback for old posts
+        commentsList: p.commentsList || []
+      }));
+      setPosts(migratedPosts);
     }
     const storedReports = LocalStorage.getItem("reported_posts");
     if (storedReports) {
@@ -74,12 +111,38 @@ useEffect(() => {
   };
 
   const handleReport = (id: string) => {
-    if (confirm("Are you sure you want to report this post for violating community guidelines?")) {
+    if (confirm("Are you sure you want to report this post?")) {
       const updatedReports = [...reportedPosts, id];
       setReportedPosts(updatedReports);
       LocalStorage.setItem("reported_posts", updatedReports);
-      alert("Post reported. Our moderation team will review it shortly.");
+      showToast("Post reported. Thank you for helping keep our community safe.", "success");
     }
+  };
+
+  const handleAddComment = (postId: string) => {
+    if (!newComment.trim()) return;
+
+    const updatedPosts = posts.map(post => {
+      if (post.id === postId) {
+        const comment: Comment = {
+          id: Date.now().toString(),
+          author: "You",
+          content: newComment,
+          timestamp: new Date().toISOString()
+        };
+        return {
+          ...post,
+          comments: post.comments + 1,
+          commentsList: [...(post.commentsList || []), comment]
+        };
+      }
+      return post;
+    });
+
+    setPosts(updatedPosts);
+    LocalStorage.setItem("community_posts", updatedPosts);
+    setNewComment("");
+    showToast("Comment added!", "success");
   };
 
   const handleCreatePost = async (e: React.FormEvent) => {
@@ -101,24 +164,25 @@ useEffect(() => {
     if (hasToxicContent) {
       // If self-harm is detected, show resources immediately
       if (combinedText.includes("hurt myself") || combinedText.includes("kill myself") || combinedText.includes("die")) {
-        alert("We detected content indicating you might be in distress. Please reach out to the Crisis Text Line (Text HOME to 741741) or call 988 immediately. Your safety matters.");
+        showToast("We detected distress. Please use the safety resources available.", "error");
         return;
       }
       
-      alert("Emerald AI has flagged this content as potentially harmful or violating our community guidelines. Please revise your post to maintain a safe environment.");
+      showToast("Content flagged as potentially harmful. Please revise.", "error");
       return;
     }
 
-    const newPost = {
+    const newPost: Post = {
       id: Date.now().toString(),
       author: "You",
       avatar: "bg-primary/20 text-primary",
-      time: "Just now",
+      timestamp: new Date().toISOString(),
       category: newPostCategory,
       title: newPostTitle,
       content: newPostContent,
       likes: 0,
       comments: 0,
+      commentsList: [],
       isLiked: false,
     };
 
@@ -129,27 +193,45 @@ useEffect(() => {
     setNewPostTitle("");
     setNewPostContent("");
     setIsCreatingPost(false);
+    showToast("Discussion started successfully!", "success");
   };
 
-  const filteredPosts = selectedCategory === "All" 
-    ? posts 
-    : posts.filter(post => post.category === selectedCategory);
+  const filteredPosts = posts.filter(post => {
+    const matchesCategory = selectedCategory === "All" || post.category === selectedCategory;
+    const matchesSearch = post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                         post.content.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
-      <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-3xl font-bold text-foreground">Community Safe Space</h1>
-          <p className="text-muted-foreground mt-1">Connect, share, and support each other in a safe environment.</p>
+      <div className="mb-8 space-y-4">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h1 className="text-3xl font-bold text-foreground">Community Safe Space</h1>
+            <p className="text-muted-foreground mt-1">Connect, share, and support each other in a safe environment.</p>
+          </div>
+          <button 
+            onClick={() => setIsCreatingPost(true)}
+            className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 transition-colors"
+          >
+            <Plus className="mr-2 h-4 w-4" />
+            New Discussion
+          </button>
         </div>
-        <button 
-          onClick={() => setIsCreatingPost(true)}
-          className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 transition-colors"
-        >
-          <Plus className="mr-2 h-4 w-4" />
-          New Discussion
-        </button>
+        
+        {/* Search Bar */}
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+          <input
+            type="text"
+            placeholder="Search discussions..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-10 pr-4 py-2 rounded-lg border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -248,7 +330,9 @@ useEffect(() => {
                       </div>
                       <div>
                         <p className="font-medium text-foreground">{post.author}</p>
-                        <p className="text-xs text-muted-foreground">{post.time} • {post.category}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {formatDistanceToNow(new Date(post.timestamp), { addSuffix: true })} • {post.category}
+                        </p>
                       </div>
                     </div>
                     <button className="text-muted-foreground hover:text-foreground">
@@ -271,7 +355,12 @@ useEffect(() => {
                       <Heart className={`h-5 w-5 ${post.isLiked ? "fill-current" : ""}`} />
                       {post.likes}
                     </button>
-                    <button className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors">
+                    <button 
+                      onClick={() => setExpandedPostId(expandedPostId === post.id ? null : post.id)}
+                      className={`flex items-center gap-2 text-sm font-medium transition-colors ${
+                        expandedPostId === post.id ? "text-primary" : "text-muted-foreground hover:text-primary"
+                      }`}
+                    >
                       <MessageSquare className="h-5 w-5" />
                       {post.comments}
                     </button>
@@ -290,6 +379,68 @@ useEffect(() => {
                       {reportedPosts.includes(post.id) ? "Reported" : "Report"}
                     </button>
                   </div>
+
+                  {/* Comments Section */}
+                  <AnimatePresence>
+                    {expandedPostId === post.id && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="overflow-hidden"
+                      >
+                        <div className="pt-4 mt-4 border-t border-border bg-muted/30 -mx-6 px-6 pb-4">
+                          <h4 className="text-sm font-semibold mb-4">Comments</h4>
+                          
+                          {/* Comment List */}
+                          <div className="space-y-4 mb-4">
+                            {post.commentsList && post.commentsList.length > 0 ? (
+                              post.commentsList.map(comment => (
+                                <div key={comment.id} className="flex gap-3">
+                                  <div className="h-8 w-8 rounded-full bg-secondary flex items-center justify-center text-xs font-semibold">
+                                    {comment.author.charAt(0)}
+                                  </div>
+                                  <div className="flex-1">
+                                    <div className="bg-background border border-border rounded-lg p-3">
+                                      <div className="flex justify-between items-start">
+                                        <span className="text-sm font-medium">{comment.author}</span>
+                                        <span className="text-xs text-muted-foreground">
+                                          {formatDistanceToNow(new Date(comment.timestamp), { addSuffix: true })}
+                                        </span>
+                                      </div>
+                                      <p className="text-sm text-muted-foreground mt-1">{comment.content}</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              ))
+                            ) : (
+                              <p className="text-sm text-muted-foreground text-center py-2">No comments yet. Be the first!</p>
+                            )}
+                          </div>
+
+                          {/* Add Comment */}
+                          <div className="flex gap-2">
+                            <input
+                              type="text"
+                              placeholder="Write a comment..."
+                              value={newComment}
+                              onChange={(e) => setNewComment(e.target.value)}
+                              className="flex-1 px-3 py-2 text-sm rounded-md border border-input bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                              onKeyDown={(e) => {
+                                if (e.key === "Enter") handleAddComment(post.id);
+                              }}
+                            />
+                            <button
+                              onClick={() => handleAddComment(post.id)}
+                              className="p-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90"
+                            >
+                              <Send className="h-4 w-4" />
+                            </button>
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </motion.div>
               ))
             ) : (
@@ -375,6 +526,35 @@ useEffect(() => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Toast Container */}
+      <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2">
+        <AnimatePresence>
+          {toasts.map((toast) => (
+            <motion.div
+              key={toast.id}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: 20 }}
+              className={`flex items-center gap-3 px-4 py-3 rounded-lg shadow-lg border ${
+                toast.type === "success" 
+                  ? "bg-green-50 border-green-200 text-green-800" 
+                  : toast.type === "error"
+                  ? "bg-red-50 border-red-200 text-red-800"
+                  : "bg-blue-50 border-blue-200 text-blue-800"
+              }`}
+            >
+              {toast.type === "success" && <CheckCircle className="h-5 w-5" />}
+              {toast.type === "error" && <AlertCircle className="h-5 w-5" />}
+              {toast.type === "info" && <AlertCircle className="h-5 w-5" />}
+              <span className="text-sm font-medium">{toast.message}</span>
+              <button onClick={() => setToasts(prev => prev.filter(t => t.id !== toast.id))} className="ml-2">
+                <X className="h-4 w-4 opacity-50 hover:opacity-100" />
+              </button>
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
     </div>
   );
