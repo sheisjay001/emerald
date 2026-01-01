@@ -26,7 +26,7 @@ import {
 const TOXIC_WORDS = ["hate", "stupid", "idiot", "kill", "abuse"];
 
 const SAFETY_RESOURCES = [
-  { name: "National Domestic Violence Hotline", phone: "1-800-799-SAFE (7233)", link: "https://www.thehotline.org/" },
+  { name: "National Domestic Violence Hotline", phone: "1-800-799-SAFE (7233) or Text START to 88788", link: "https://www.thehotline.org/" },
   { name: "Cyber Civil Rights Initiative", phone: "1-844-878-CCRI (2274)", link: "https://www.cybercivilrights.org/" },
   { name: "Crisis Text Line", phone: "Text HOME to 741741", link: "https://www.crisistextline.org/" },
 ];
