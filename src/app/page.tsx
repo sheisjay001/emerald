@@ -179,7 +179,7 @@ export default function Home() {
           </div>
           <div className="mt-8 md:mt-0 md:order-1">
             <p className="text-center text-base text-muted-foreground">
-              &copy; 2024 Emerald. Made with love, for women — by a woman in cybersecurity.
+              &copy; 2025 Emerald. Made with love, for women — by a woman in cybersecurity.
             </p>
           </div>
         </div>
