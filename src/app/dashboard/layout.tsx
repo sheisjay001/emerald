@@ -127,8 +127,6 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <LogOut size={20} />
           </button>
           
-          <PanicButton className="w-10 h-10 p-0 rounded-full flex items-center justify-center" />
-          
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-2 text-foreground rounded-md hover:bg-muted">
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
