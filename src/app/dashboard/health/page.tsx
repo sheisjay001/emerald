@@ -13,7 +13,8 @@ import {
   Activity,
   Thermometer,
   Droplets,
-  AlertOctagon
+  AlertOctagon,
+  Trash2
 } from "lucide-react";
 import { 
   AreaChart, 
@@ -68,12 +69,69 @@ export default function HealthPage() {
   const [aiInsight, setAiInsight] = useState("Analyzing your data...");
   const [healthAlerts, setHealthAlerts] = useState<{title: string, message: string, severity: 'low' | 'medium' | 'high'}[]>([]);
 
-  // Simulate advanced pattern detection
+  // State for Chart Data
+  const [chartData, setChartData] = useState<any[]>(SYMPTOM_DATA);
+  const [logs, setLogs] = useState<any[]>([]);
+
+  // Load logs on mount
+  useEffect(() => {
+    const loadedLogs = LocalStorage.getItem("health_logs") || [];
+    setLogs(loadedLogs);
+  }, []);
+
+  // Process chart when logs change
+  useEffect(() => {
+    if (logs.length > 0) {
+      // Sort by date (oldest to newest)
+      const sortedLogs = [...logs].sort((a: any, b: any) => new Date(a.date).getTime() - b.date);
+      
+      // Take last 7 entries
+      const recentLogs = sortedLogs.slice(-7);
+      
+      const newChartData = recentLogs.map((log: any) => {
+        const date = new Date(log.date);
+        const dayName = date.toLocaleDateString('en-US', { weekday: 'short' });
+        
+        // Map mood to score
+        let moodScore = 5;
+        if (log.mood === "Happy") moodScore = 9;
+        if (log.mood === "Energetic") moodScore = 8;
+        if (log.mood === "Neutral") moodScore = 5;
+        if (log.mood === "Anxious") moodScore = 3;
+        if (log.mood === "Sad") moodScore = 2;
+
+        // Map symptoms count to "Physical Load" (proxy for pain/energy drain)
+        const symptomLoad = Math.min(10, (log.symptoms?.length || 0) * 2);
+
+        return {
+          day: dayName,
+          mood: moodScore,
+          energy: 10 - symptomLoad // Inverse of symptom load as proxy for energy
+        };
+      });
+      
+      if (newChartData.length > 0) {
+        setChartData(newChartData);
+      }
+    }
+  }, [logs]);
+
+  const handleDelete = (index: number) => {
+    // Index is from the reversed slice (0-4) shown in UI
+    const reversedLogs = [...logs].reverse();
+    const logToDelete = reversedLogs[index];
+    
+    if (logToDelete) {
+      const updatedLogs = logs.filter(l => l !== logToDelete);
+      setLogs(updatedLogs);
+      LocalStorage.setItem("health_logs", updatedLogs, true);
+    }
+  };
+  // Calculate alerts based on current selection
   useEffect(() => {
     const alerts: typeof healthAlerts = [];
     
     // PCOS Pattern (Mock: Acne + Irregularity indicators)
-    // In a real app, this would analyze 3+ months of cycle length variance and androgen symptoms
     if ((selectedSymptoms.includes("Acne") || selectedSymptoms.includes("Excess Hair")) && (selectedSymptoms.includes("Irregular Periods") || selectedSymptoms.includes("High Libido"))) {
       alerts.push({
         title: "PCOS Risk Pattern Detected",
@@ -152,12 +210,16 @@ export default function HealthPage() {
       
       // Save encrypted
       LocalStorage.setItem("health_logs", updatedLogs, true);
+      setLogs(updatedLogs);
       
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       setIsSaving(false);
-      alert("Health entry saved securely to local storage! (Encrypted)");
+      // Reset form
+      setNote("");
+      setSelectedMood(null);
+      setSelectedSymptoms([]);
     } catch (error) {
       console.error("Save error:", error);
       setIsSaving(false);
@@ -269,7 +331,7 @@ export default function HealthPage() {
             <h3 className="font-semibold text-foreground mb-4">Weekly Trends</h3>
             <div className="h-64 w-full">
               <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={SYMPTOM_DATA}>
+                <AreaChart data={chartData}>
                   <defs>
                     <linearGradient id="colorMood" x1="0" y1="0" x2="0" y2="1">
                       <stop offset="5%" stopColor="#0ea5e9" stopOpacity={0.3}/>
@@ -278,7 +340,7 @@ export default function HealthPage() {
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e5e7eb" />
                   <XAxis dataKey="day" axisLine={false} tickLine={false} tick={{fontSize: 12, fill: '#6b7280'}} />
-                  <YAxis hide />
+                  <YAxis hide domain={[0, 10]} />
                   <Tooltip 
                     contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                   />
@@ -353,6 +415,51 @@ export default function HealthPage() {
               ))}
             </div>
           )}
+
+          {/* Recent History */}
+          <div className="bg-card rounded-xl border border-border p-6 shadow-sm">
+            <h3 className="font-semibold text-foreground mb-4">Recent Logs</h3>
+            {logs.length > 0 ? (
+              <div className="space-y-4">
+                {logs.slice().reverse().slice(0, 5).map((log: any, idx: number) => (
+                  <div key={idx} className="pb-4 border-b border-border last:border-0 last:pb-0">
+                    <div className="flex justify-between items-start mb-1">
+                      <span className="text-sm font-medium text-foreground">
+                        {new Date(log.date).toLocaleDateString()}
+                      </span>
+                      <span className="text-xs text-muted-foreground">
+                        {new Date(log.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className={`text-xs px-2 py-0.5 rounded-full bg-secondary text-secondary-foreground`}>
+                        {log.mood || "No Mood"}
+                      </span>
+                      <span className="text-xs text-muted-foreground">
+                        {log.symptoms?.length || 0} symptoms
+                      </span>
+                      <button 
+                        onClick={() => handleDelete(idx)}
+                        className="ml-auto p-1 text-muted-foreground hover:text-red-500 transition-colors"
+                        title="Delete entry"
+                      >
+                        <Trash2 className="h-3 w-3" />
+                      </button>
+                    </div>
+                    {log.note && (
+                      <p className="text-xs text-muted-foreground line-clamp-2 italic">
+                        "{log.note}"
+                      </p>
+                    )}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground text-center py-4">
+                No logs yet. Start tracking today!
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </div>
