@@ -20,7 +20,6 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/context/AuthContext";
 import PrivacyGuard from "@/components/PrivacyGuard";
-import PanicButton from "@/components/PanicButton";
 
 const sidebarItems = [
   { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
@@ -98,9 +97,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
            </div>
 
           <PanicButton expanded className="w-full" />
-          
-          <button 
-            onClick={logout}
+           onClick={logout}
             className="flex items-center gap-3 px-4 py-2 w-full text-sm font-medium text-muted-foreground hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-lg transition-colors"
           >
             <LogOut size={18} />
