@@ -86,13 +86,21 @@ export default function CommunityPage() {
   useEffect(() => {
     const storedPosts = LocalStorage.getItem("community_posts");
     if (storedPosts) {
+      // Filter out legacy mock posts with IDs "1", "2", "3"
+      const filteredPosts = storedPosts.filter((p: any) => !["1", "2", "3"].includes(p.id));
+
       // Migration check: ensure timestamp exists if migrating from old data
-      const migratedPosts = storedPosts.map((p: any) => ({
+      const migratedPosts = filteredPosts.map((p: any) => ({
         ...p,
         timestamp: p.timestamp || new Date().toISOString(), // Fallback for old posts
         commentsList: p.commentsList || []
       }));
+      
       setPosts(migratedPosts);
+      // Update local storage to permanently remove them
+      if (storedPosts.length !== migratedPosts.length) {
+        LocalStorage.setItem("community_posts", migratedPosts);
+      }
     }
     const storedReports = LocalStorage.getItem("reported_posts");
     if (storedReports) {
