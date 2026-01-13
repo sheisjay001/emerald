@@ -14,6 +14,7 @@ import {
   Utensils,
   BookOpen,
   Sparkles,
+  Shield,
   ShieldAlert
 } from "lucide-react";
 import { useState } from "react";
@@ -59,6 +60,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             Menu
           </p>
           {sidebarItems.map((item) => {
+            if (item.name === "Admin" && user?.role !== "ADMIN") {
+              return null;
+            }
             const Icon = item.icon;
             const isActive = pathname === item.href;
             return (
@@ -133,6 +137,9 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           >
              <nav className="flex-1 p-4 space-y-2 overflow-y-auto pb-24">
               {sidebarItems.map((item) => {
+                if (item.name === "Admin" && user?.role !== "ADMIN") {
+                  return null;
+                }
                 const Icon = item.icon;
                 const isActive = pathname === item.href;
                 return (

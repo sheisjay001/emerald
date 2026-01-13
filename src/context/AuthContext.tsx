@@ -7,6 +7,7 @@ import { LocalStorage } from "@/lib/storage";
 interface User {
   email: string;
   name: string;
+  role: string;
 }
 
 interface AuthContextType {
@@ -78,7 +79,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       } else {
         // Fallback for demo/preview if API fails or DB not connected
         console.warn("API login failed, falling back to mock");
-        const mockUser = { email, name: email.split("@")[0] };
+        const role = email === "admin@emerald.com" ? "ADMIN" : "USER";
+        const mockUser = { email, name: email.split("@")[0], role };
         setUser(mockUser);
         LocalStorage.setItem("user", mockUser, true); // Encrypted persistence
         router.push("/dashboard");
@@ -86,7 +88,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } catch (error) {
       console.error("Login error", error);
       // Fallback
-      const mockUser = { email, name: email.split("@")[0] };
+      const role = email === "admin@emerald.com" ? "ADMIN" : "USER";
+      const mockUser = { email, name: email.split("@")[0], role };
       setUser(mockUser);
       LocalStorage.setItem("user", mockUser, true); // Encrypted persistence
       router.push("/dashboard");

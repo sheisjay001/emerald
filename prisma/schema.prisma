@@ -16,6 +16,7 @@ model User {
   password  String // Hashed password
   name      String?
   avatar    String?
+  role      String   @default("USER") // Add role field
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
