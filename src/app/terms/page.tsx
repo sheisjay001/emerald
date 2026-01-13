@@ -43,7 +43,7 @@ export default function TermsOfService() {
               <h2>1. Acceptance of Terms</h2>
             </div>
             <p className="leading-relaxed text-muted-foreground">
-              By accessing or using the Emerald application ("Service"), you agree to be bound by these Terms of Service. If you disagree with any part of the terms, you may not access the Service.
+              By accessing or using the Emerald application (&quot;Service&quot;), you agree to be bound by these Terms of Service. If you disagree with any part of the terms, you may not access the Service.
             </p>
           </section>
 
@@ -93,7 +93,7 @@ export default function TermsOfService() {
           <section className="space-y-4">
             <h2 className="text-xl font-semibold text-foreground">7. Changes to Terms</h2>
             <p className="leading-relaxed text-muted-foreground">
-              We reserve the right, at our sole discretion, to modify or replace these Terms at any time. We will provide at least 30 days' notice prior to any new terms taking effect.
+              We reserve the right, at our sole discretion, to modify or replace these Terms at any time. We will provide at least 30 days&rsquo; notice prior to any new terms taking effect.
             </p>
           </section>
         </div>

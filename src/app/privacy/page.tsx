@@ -29,7 +29,7 @@ export default function PrivacyPolicy() {
           </div>
           <h1 className="text-4xl font-bold tracking-tight mb-4">Privacy Policy</h1>
           <p className="text-lg text-muted-foreground">
-            Your privacy is our fundamental priority. Here's how we protect your data.
+            Your privacy is our fundamental priority. Here&rsquo;s how we protect your data.
           </p>
           <p className="text-sm text-muted-foreground mt-2">
             Last Updated: January 1, 2025
@@ -43,7 +43,7 @@ export default function PrivacyPolicy() {
               <h2>1. Data Minimization & Local Storage</h2>
             </div>
             <p className="leading-relaxed text-muted-foreground">
-              Emerald is designed with a "Local First" architecture. Whenever possible, your sensitive health data (including cycle tracking, symptoms, and journal entries) is stored directly on your device using encrypted local storage. We do not monetize, sell, or aggregate your personal health data for advertising purposes.
+              Emerald is designed with a &quot;Local First&quot; architecture. Whenever possible, your sensitive health data (including cycle tracking, symptoms, and journal entries) is stored directly on your device using encrypted local storage. We do not monetize, sell, or aggregate your personal health data for advertising purposes.
             </p>
           </section>
 
